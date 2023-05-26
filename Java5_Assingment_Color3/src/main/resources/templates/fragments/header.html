@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<div th:fragment="header">
+		<div id="header" class="py-1 bg-black top">
+			<div class="container">
+				<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+					<div class="col-lg-12 d-block">
+						<div class="row d-flex">
+							<div class="col-md pr-4 d-flex topper align-items-center">
+								<div class="icon mr-2 d-flex justify-content-center align-items-center">
+									<span class="icon-phone2"></span>
+								</div>
+								<span class="text">+ 1235 2355 98</span>
+							</div>
+							<div id="loginStatus"
+								class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
+								<!-- Nội dung ban đầu -->
+								<a href="update-profile" id="updateLink" style="display: none;">Cập
+									nhật</a> <span id="separator1">/</span> <a href="logout" id="logoutLink"
+									style="display: none;">Đăng xuất</a> <a href="login" id="loginLink">Đăng nhập</a>
+								<span id="separator2">/</span>
+								<a href="register" id="registerLink">Đăng ký</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length === 2) {
+                return parts.pop().split(";").shift();
+            }
+            return false;
+        }
+
+        window.onload = function() {
+            var isLoggedIn = getCookie("isLoggedIn");
+            console.log(isLoggedIn);
+            if (isLoggedIn === "true") {
+                // Người dùng đã đăng nhập
+                document.getElementById('updateLink').style.display = 'inline';
+                document.getElementById('logoutLink').style.display = 'inline';
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('registerLink').style.display = 'none';
+                document.getElementById('separator1').style.display = 'inline';
+                document.getElementById('separator2').style.display = 'none';
+            } else {
+                // Người dùng chưa đăng nhập
+                document.getElementById('updateLink').style.display = 'none';
+                document.getElementById('logoutLink').style.display = 'none';
+                document.getElementById('loginLink').style.display = 'inline';
+                document.getElementById('registerLink').style.display = 'inline';
+                document.getElementById('separator1').style.display = 'none';
+                document.getElementById('separator2').style.display = 'inline';
+            }
+        };
+    </script>
+
+	</div>
+</body>
+
+</html>
