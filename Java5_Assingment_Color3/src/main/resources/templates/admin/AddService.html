@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,9 +37,9 @@
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a
-					href="../../index3.html" class="nav-link">Home</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="#"
-					class="nav-link">Contact</a></li>
+					href="AccountManagement" class="nav-link">Quản lý</a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a href="ThongKeDoanhThu"
+					class="nav-link">Thống kê</a></li>
 			</ul>
 
 			<!-- Right navbar links -->
@@ -169,7 +169,7 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="../../index3.html" class="brand-link"> <img
+			<a href="AccountManagement" class="brand-link"> <img
 				src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
 				class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">AdminLTE 3</span>
@@ -178,16 +178,7 @@
 			<!-- Sidebar -->
 			<div class="sidebar">
 				<!-- Sidebar user (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-					<div class="image">
-						<img src="admin/dist/img/user2-160x160.jpg"
-							class="img-circle elevation-2" alt="User Image">
-					</div>
-					<div class="info">
-						<a href="#" class="d-block">Alexander Pierce</a>
-					</div>
-				</div>
-
+	
 				<!-- SidebarSearch Form -->
 				<div class="form-inline">
 					<div class="input-group" data-widget="sidebar-search">
@@ -210,7 +201,7 @@
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas fa-table"></i>
 								<p>
-									Trang chủ <i class="fas fa-angle-left right"></i>
+									Quản lý <i class="fas fa-angle-left right"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
@@ -227,16 +218,20 @@
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>Quản lý dịch vụ</p>
 								</a></li>
+								<li class="nav-item"><a href="SupplierManagement"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Quản lý nhà cung cấp</p>
+								</a></li>
 							</ul></li>
 
-							<li class="nav-item menu-open"><a href="#"
-								class="nav-link active"> <i class="nav-icon fas fa-table"></i>
-									<p>
-										Thống kê <i class="fas fa-angle-left right"></i>
-									</p>
-							</a>
+						<li class="nav-item"><a href="#"
+							class="nav-link"> <i class="nav-icon fas fa-table"></i>
+								<p>
+									Thống kê <i class="fas fa-angle-left right"></i>
+								</p>
+						</a>
 							<ul class="nav nav-treeview">
-	
+
 								<li class="nav-item"><a href="ThongKeDoanhThu"
 									class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>Thống kê doanh thu</p>
@@ -280,51 +275,55 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card card-primary">
-							<div class="card-header">
-								<h3 class="card-title">General</h3>
+				<form action="AddService" method="post">
 
-								<div class="card-tools">
-									<button type="button" class="btn btn-tool"
-										data-card-widget="collapse" title="Collapse">
-										<i class="fas fa-minus"></i>
-									</button>
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="form-group">
-									<label for="inputName">Tên dịch vụ</label> <input type="text"
-										id="inputName" class="form-control">
-								</div>
-								<div class="form-group">
-									<label for="inputName">Giá</label>
-									<div class="input-group">
-										<input type="text" class="form-control">
-										<div class="input-group-append">
-											<span class="input-group-text">$</span>
-										</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card card-primary">
+								<div class="card-header">
+									<h3 class="card-title">General</h3>
+
+									<div class="card-tools">
+										<button type="button" class="btn btn-tool"
+											data-card-widget="collapse" title="Collapse">
+											<i class="fas fa-minus"></i>
+										</button>
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="inputDescription">Mô tả</label>
-									<textarea id="inputDescription" class="form-control" rows="4"></textarea>
+								<div class="card-body">
+									<div class="form-group">
+										<label for="inputName">Tên dịch vụ</label> <input type="text"
+											id="inputName" name="tenDichVu" class="form-control">
+									</div>
+									<div class="form-group">
+										<label for="inputName">Giá</label>
+										<div class="input-group">
+											<input name="gia" type="number" class="form-control">
+											<div class="input-group-append">
+												<span class="input-group-text">$</span>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputDescription">Mô tả</label>
+										<textarea id="inputDescription" name="moTa"
+											class="form-control" rows="4"></textarea>
+									</div>
 								</div>
+								<!-- /.card-body -->
 							</div>
-							<!-- /.card-body -->
+							<!-- /.card -->
 						</div>
-						<!-- /.card -->
-					</div>
 
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<a href="#" class="btn btn-secondary">Cancel</a> <input
-							type="submit" value="Tạo sản phẩm mới"
-							class="btn btn-success float-right">
 					</div>
-				</div>
+					<div class="row">
+						<div class="col-12">
+							<a href="#" class="btn btn-secondary">Cancel</a> <input
+								type="submit" value="Tạo sản phẩm mới"
+								class="btn btn-success float-right">
+						</div>
+					</div>
+				</form>
 			</section>
 			<!-- /.content -->
 		</div>
