@@ -1,20 +1,14 @@
 package com.poly.Model;
 
-import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "sanpham")
@@ -27,11 +21,13 @@ public class SanPham {
     public int id;
 
     @Column(name = "ten_san_pham", nullable = false)
-    
+    @NotBlank(message = "Tên sản phẩm không được trống")
+    @Size(min = 1, max = 255, message = "Tên sản phẩm phải có từ 1 đến 255 kí tự")
     public String tenSanPham;
 
     @Column(name = "gia", nullable = false)
-    
+    @PositiveOrZero(message = "Giá sản phẩm phải là số dương hoặc bằng 0")
+    @NotNull(message = "Giá không được để trỗng")
     public Double gia;
 
     @Column(name = "mo_ta")
@@ -42,6 +38,8 @@ public class SanPham {
     
     @Column(name = "trang_thai")
     public boolean trangThai;
+    
+   
 
     @ManyToOne
     @JoinColumn(name = "nha_cung_cap_id", nullable = false)

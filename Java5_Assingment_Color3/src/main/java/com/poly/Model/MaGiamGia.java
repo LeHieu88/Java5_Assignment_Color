@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,28 +16,33 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MaGiamGia {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private int id;
 
-    @Column(name = "ma", nullable = false)
-    public String ma;
+	    @NotBlank(message = "Lỗi không được để trống")
+	    @Column(name = "ma", nullable = false)
+	    private String ma;
 
-    @Column(name = "gia_tri", nullable = false)
-    public double giaTri;
+	    @NotNull(message = "Lỗi không được để trống")
+	    @Column(name = "gia_tri", nullable = false)
+	    @Min(value = 0, message = "Giá trị phải lớn hơn hoặc bằng 0")
+	    private Double giaTri;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "ngay_bat_dau")
-    Date ngay_bat_dau = new Date();
+	    @Temporal(TemporalType.DATE)
+	    @Column(name = "ngay_bat_dau")
+	    private Date ngayBatDau = new Date();
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "ngay_ket_thuc")
-    Date ngay_ket_thuc = new Date();
+	    @Temporal(TemporalType.DATE)
+	    @Column(name = "ngay_ket_thuc")
+	    private Date ngayKetThuc = new Date();
 
-    @Column(name = "so_luong_san_pham", nullable = false)
-    public int soLuongSanPham;
+	    @NotNull(message = "Lỗi không được để trống")
+	    @Min(value = 0, message = "Số lượng sản phẩm phải lớn hơn hoặc bằng 0")
+	    @Column(name = "so_luong_san_pham", nullable = false)
+	    private Integer soLuongSanPham;
 
-    @OneToMany(mappedBy = "maGiamGia")
-    public List<SanPhamMaGiamGia> sanPhamMaGiamGiaList;
+	    @OneToMany(mappedBy = "maGiamGia")
+	    private List<SanPhamMaGiamGia> sanPhamMaGiamGiaList;
 }
 

@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GioHang {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "gio_hang_id", nullable = false)
     public int gio_hang_id;
@@ -29,6 +29,4 @@ public class GioHang {
 
     @OneToMany(mappedBy = "gioHang")
     public List<GioHangSanPham> gioHangSanPhamList;
-
-    
 }

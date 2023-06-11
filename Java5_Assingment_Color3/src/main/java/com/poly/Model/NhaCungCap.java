@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 import java.util.List;
 
 @Entity
@@ -13,24 +15,28 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NhaCungCap {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int id;
 
-    @Column(name = "ten_nhacungcap", nullable = false)
-    public String tenNhaCungCap;
+	@Column(name = "ten_nhacungcap", nullable = false)
+	@NotBlank(message = "Tên nhà cung cấp không được để trống")
+	public String tenNhaCungCap;
 
-    @Column(name = "dia_chi")
-    public String diaChi;
+	@Column(name = "dia_chi")
+	@NotBlank(message = "Địa chỉ không được để trống")
+	public String diaChi;
 
-    @Column(name = "so_dien_thoai")
-    public String soDienThoai;
+	@Column(name = "so_dien_thoai")
+	@Pattern(regexp = "\\d{10}", message = "Số điện thoại không hợp lệ")
+	public String soDienThoai;
 
-    @Column(name = "email")
-    public String email;
+	@Column(name = "email")
+	@Email(message = "Địa chỉ email không hợp lệ")
+	@NotBlank(message = "email không được để trống")
+	public String email;
 
-    @OneToMany(mappedBy = "nhaCungCap")
-    public List<SanPham> sanPhamList;
+	@OneToMany(mappedBy = "nhaCungCap")
+	public List<SanPham> sanPhamList;
 
 }
-
