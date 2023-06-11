@@ -43,7 +43,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">The Pet Care Shop</a>
+			<a class="navbar-brand" th:href="@{/index}">The Pet Care Shop</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -52,16 +52,13 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item "><a href="index.html" class="nav-link">Trang
-							chủ</a></li>
-					<li class="nav-item active"><a href="menu.html"
-						class="nav-link">Sản phẩm</a></li>
-					<li class="nav-item"><a href="service.html" class="nav-link">Dịch
-							vụ</a></li>
-
-					<li class="nav-item cta"><a href="shoppingCart.html"
-						class="nav-link"><i class='bx bx-cart-add'
-							style="font-size: 20px;"></i> Giỏ hàng</a></li>
+					<li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang chủ</a></li>
+					<li class="nav-item"><a th:href="@{/menu}" class="nav-link">Sản phẩm</a></li>
+					<li class="nav-item"><a th:href="@{/dichvu}" class="nav-link">Dịch vụ</a></li>
+					<li class="nav-item cta">
+						<a th:href="@{/User/Card}" th:method="GET" class="nav-link">
+						<i class='bx bx-cart-add' style="font-size: 20px;"> </i> Giỏ hàng</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -100,22 +97,25 @@
 					<div class="heading-menu text-center ftco-animate">
 						<h3>Thức ăn cho chó</h3>
 					</div>
-					<div class="menus d-flex ftco-animate">
-						<div class="menu-img img"
-							style="background-image: url(images/breakfast-1.jpg);"></div>
-						<div class="text">
-							<div class="d-flex">
-								<div class="one-half">
-									<h3>Grilled Beef with potatoes</h3>
+					<div th:each="item : ${listSP}" class="menus d-flex ftco-animate">
+						<a th:href="@{/productDetails/{id}(id=${item.id})}">
+							<div class="menu-img img"
+								th:style="'background-image: url(\''+@{'/images/' + ${item.hinhAnh}} + '\');'"></div>
+							<div class="text">
+								<div class="d-flex">
+									<div class="one-half">
+										<h3 th:text="${item.tenSanPham}"></h3>
+									</div>
+									<div class="one-forth">
+										<span class="price"><span th:text="${item.gia}"></span></span>
+									</div>
 								</div>
-								<div class="one-forth">
-									<span class="price">$29</span>
-								</div>
+								<p>
+									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
+								</p>
 							</div>
-							<p>
-								<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-							</p>
-						</div>
+						</a>
+
 					</div>
 					<div class="menus d-flex ftco-animate">
 						<div class="menu-img img"

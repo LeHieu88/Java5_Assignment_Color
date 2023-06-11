@@ -19,54 +19,25 @@
 								</div>
 								<span class="text">+ 1235 2355 98</span>
 							</div>
-							<div id="loginStatus"
+							<div th:if="${session.session_NguoiDung}"
 								class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
-								<!-- Nội dung ban đầu -->
-								<a href="update-profile" id="updateLink" style="display: none;">Cập
-									nhật</a> <span id="separator1">/</span> <a href="logout" id="logoutLink"
-									style="display: none;">Đăng xuất</a> <a href="login" id="loginLink">Đăng nhập</a>
-								<span id="separator2">/</span>
-								<a href="register" id="registerLink">Đăng ký</a>
+								<!-- Đã đăng nhập -->
+								<a th:href="@{/editProfile}" th:text="${session.session_NguoiDung.getHoTen}"> </a>
+									<span style="margin: 0 20px">/</span>   
+								<a th:href="@{/logout}"> Đăng xuất</a>
+							</div>
+							<!-- Chưa đăng nhập -->  
+							<div th:unless="${session.session_NguoiDung}"
+								class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
+								<a th:href="@{/login}" th:method="GET">Đăng nhập </a>
+									<span>/</span>
+								<a th:href="@{/user/register}" th:method="GET"> Đăng ký</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<script>
-        function getCookie(name) {
-            var value = "; " + document.cookie;
-            var parts = value.split("; " + name + "=");
-            if (parts.length === 2) {
-                return parts.pop().split(";").shift();
-            }
-            return false;
-        }
-
-        window.onload = function() {
-            var isLoggedIn = getCookie("isLoggedIn");
-            console.log(isLoggedIn);
-            if (isLoggedIn === "true") {
-                // Người dùng đã đăng nhập
-                document.getElementById('updateLink').style.display = 'inline';
-                document.getElementById('logoutLink').style.display = 'inline';
-                document.getElementById('loginLink').style.display = 'none';
-                document.getElementById('registerLink').style.display = 'none';
-                document.getElementById('separator1').style.display = 'inline';
-                document.getElementById('separator2').style.display = 'none';
-            } else {
-                // Người dùng chưa đăng nhập
-                document.getElementById('updateLink').style.display = 'none';
-                document.getElementById('logoutLink').style.display = 'none';
-                document.getElementById('loginLink').style.display = 'inline';
-                document.getElementById('registerLink').style.display = 'inline';
-                document.getElementById('separator1').style.display = 'none';
-                document.getElementById('separator2').style.display = 'inline';
-            }
-        };
-    </script>
-
 	</div>
 </body>
 

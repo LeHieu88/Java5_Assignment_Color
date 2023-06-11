@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
 <title>Appetizer - Free Bootstrap 4 Template by Colorlib</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900"
 	rel="stylesheet">
@@ -16,27 +14,21 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Miss+Fajardose&display=swap"
 	rel="stylesheet">
-
 <link th:href="@{/css/open-iconic-bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/animate.css}" rel="stylesheet" />
-
 <link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet" />
 <link th:href="@{/css/owl.theme.default.min.css}" rel="stylesheet" />
 <link th:href="@{/css/magnific-popup.css}" rel="stylesheet" />
-
 <link th:href="@{/css/aos.css}" rel="stylesheet" />
-
 <link th:href="@{/css/ionicons.min.css}" rel="stylesheet" />
-
 <link th:href="@{/css/bootstrap-datepicker.css}" rel="stylesheet" />
 <link th:href="@{/css/jquery.timepicker.css}" rel="stylesheet" />
-
 <link th:href="@{/css/flaticon.css}" rel="stylesheet" />
 <link th:href="@{/css/icomoon.css}" rel="stylesheet" />
 <link th:href="@{/css/style.css}" rel="stylesheet" />
-</head>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
 	rel='stylesheet'>
+</head>
 
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
@@ -45,7 +37,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">The Pet Care Shop</a>
+			<a class="navbar-brand" th:href="@{/index}">The Pet Care Shop</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -54,16 +46,13 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item "><a href="index.html" class="nav-link">Trang
-							chủ</a></li>
-					<li class="nav-item active"><a href="menu.html"
-						class="nav-link">Sản phẩm</a></li>
-					<li class="nav-item"><a href="service.html" class="nav-link">Dịch
-							vụ</a></li>
-
-					<li class="nav-item cta"><a href="shoppingCart.html"
-						class="nav-link"><i class='bx bx-cart-add'
-							style="font-size: 20px;"></i> Giỏ hàng</a></li>
+					<li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang chủ</a></li>
+					<li class="nav-item"><a th:href="@{/menu}" class="nav-link">Sản phẩm</a></li>
+					<li class="nav-item"><a th:href="@{/dichvu}" class="nav-link">Dịch vụ</a></li>
+					<li class="nav-item cta">
+						<a th:href="@{/User/Card}" th:method="GET" class="nav-link">
+						<i class='bx bx-cart-add' style="font-size: 20px;"> </i> Giỏ hàng</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -95,64 +84,42 @@
 			</div>
 		</div>
 		<div class="sanpham-container">
-			<div class="row">
-				<div class="col-lg-4">
-					<div class="sanpham-img">
-						<img class="img-fluid img-thumbnail"
-							src="./images/img/doAn/cho/2.jpg" alt="">
-					</div>
-				</div>
-				<div class="col-lg-8">
-					<div class="sanpham-info">
-						<div class="sanpham-name">
-							<h3>Thức ăn cho cún</h3>
-						</div>
-						<div class="sanpham-nsx d-flex flex-wrap justify-content-start">
-							<p style="padding: 2px;">Ai đi đái</p>
-							<p style="padding: 2px;">Nai kì</p>
-						</div>
-						<div class="sanpham-price d-flex">
-							<h3>Giá:</h3>
-							<p>400.000 vnd</p>
-						</div>
-						<div class="sanpham-price d-flex">
-							<h3>Giá:</h3>
-							<p>400.000 vnd</p>
-						</div>
-						<div class="soluong"
-							style="margin-right: 10px; margin-bottom: 10px;">
-							<button type="button" class="btn btn-primary"
-								style="width: 50px;">+</button>
-							<input type="text" style="width: 50px;">
-							<button type="button" class="btn btn-primary"
-								style="width: 50px;">-</button>
-						</div>
-						<div class="cart">
-							<button type="button" class="btn btn-primary">Mua ngay</button>
-							<button type="button" class="btn btn-primary">
-								<i class='bx bx-cart-add' style="font-size: 20px;"></i> Thêm vào
-								giỏ hàng
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			<form th:action="@{/addCart/{id}(id=${product.id})}" method="post">
 
-		</div>
-		<div class="container">
-			<div class="row"
-				style="border: 2px solid #3333; margin-bottom: 100px;">
-				<div class="col-lg-12">
-					<div class="sanpham-mota">
-						<h3 style="border-bottom: 1px solid #3333;">Mô tả sản phẩm</h3>
-						<p>...............................</p>
-						<br>
-						<p>...............................</p>
-						<br>
-						<p>...............................</p>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="sanpham-img">
+							<img class="img-fluid img-thumbnail"
+								th:src="@{'/images/' + ${product.hinhAnh}}" alt="">
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="sanpham-info">
+							<div class="sanpham-name">
+								<h3 th:text="${product.tenSanPham}"></h3>
+							</div>
+							<div class="sanpham-price d-flex">
+								<h3>Giá:</h3>
+								<p th:text="${product.gia}"></p>
+							</div>
+							<div class="sanpham-price d-flex">
+
+								<span th:text="${product.moTa}"></span>
+							</div>
+							<div class="soluong"
+								style="margin-right: 10px; margin-bottom: 10px;">
+								<input hidden type="text" name="quantity" style="width: 50px;"
+									id="quantityInput" th:value="1">
+							</div>
+							<div class="cart">
+								<button type="submit" class="btn btn-primary">
+									<i class='bx bx-cart-add' style="font-size: 20px;"></i>Mua ngay
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 
 	</div>
@@ -181,7 +148,5 @@
 	<!-- Thay YOUR_API_KEY bằng khóa API Google Maps của bạn -->
 	<script th:src="@{/js/google-map.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-
 </body>
-
 </html>
