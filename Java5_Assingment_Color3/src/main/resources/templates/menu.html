@@ -100,22 +100,25 @@
 					<div class="heading-menu text-center ftco-animate">
 						<h3>Thức ăn cho chó</h3>
 					</div>
-					<div class="menus d-flex ftco-animate">
-						<div class="menu-img img"
-							style="background-image: url(images/breakfast-1.jpg);"></div>
-						<div class="text">
-							<div class="d-flex">
-								<div class="one-half">
-									<h3>Grilled Beef with potatoes</h3>
+					<div th:each="item : ${listSP}" class="menus d-flex ftco-animate">
+						<a th:href="@{/productDetails/{id}(id=${item.id})}">
+							<div class="menu-img img"
+								th:style="'background-image: url(\''+@{'/images/' + ${item.hinhAnh}} + '\');'"></div>
+							<div class="text">
+								<div class="d-flex">
+									<div class="one-half">
+										<h3 th:text="${item.tenSanPham}"></h3>
+									</div>
+									<div class="one-forth">
+										<span class="price"><span th:text="${item.gia}"></span></span>
+									</div>
 								</div>
-								<div class="one-forth">
-									<span class="price">$29</span>
-								</div>
+								<p>
+									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
+								</p>
 							</div>
-							<p>
-								<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-							</p>
-						</div>
+						</a>
+
 					</div>
 					<div class="menus d-flex ftco-animate">
 						<div class="menu-img img"
