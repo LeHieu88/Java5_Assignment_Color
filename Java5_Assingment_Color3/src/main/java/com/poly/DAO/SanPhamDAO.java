@@ -19,9 +19,6 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Integer> {
 	@Query("SELECT s FROM SanPham s WHERE s.nhaCungCap.id = :nhaCungCapId")
 	List<SanPham> findBySanPhamId(@Param("nhaCungCap") Integer nhaCungCapId);
 
-
-
-public interface SanPhamDAO extends JpaRepository<SanPham, Integer>{
-	SanPham findById(int id);
+	SanPham findById(int sp);
 
 }
