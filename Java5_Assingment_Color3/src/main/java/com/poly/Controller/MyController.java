@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.poly.DAO.NguoiDungDAO;
 import com.poly.DAO.SanPhamDAO;
+import com.poly.DAO.UserDAO;
+import com.poly.Model.NguoiDung;
 import com.poly.Model.SanPham;
 import com.poly.Service.CookieService;
 import com.poly.Service.ParamService;
@@ -32,38 +33,38 @@ import jakarta.validation.Valid;
 @Controller
 public class MyController {
 	@Autowired
-	NguoiDungDAO customerDAO;
+	UserDAO customerDAO;
 	@Autowired
 	SanPhamDAO sanphamDAO;
 	@Autowired
 	ParamService paramService;
 	@Autowired
 	SessionService sessionService;
-	@Autowired
+	@Autowired 
 	CookieService cookieService;
-
+	
 	@GetMapping("/index")
 	public String index(Model model) {
 		String username = paramService.getString("tenDangNhap", "");
 		List<SanPham> list = new ArrayList<>();
 		for (SanPham sanPham : sanphamDAO.findAll()) {
-			if (sanPham.isTrangThai()) {
+			if(sanPham.isTrangThai()) {
 				list.add(sanPham);
 			}
 		}
 		model.addAttribute("listSP", list);
 		return "index";
 	}
-
+	
 	@GetMapping("/card")
 	public String card(Model model) {
-		if (sessionService.get("session_NguoiDung") == null) {
+		if(sessionService.get("session_NguoiDung") == null) {
 			System.out.println("Chưa đăng nhập");
 			return "redirect:/index";
-		} else {
+		}else {
 			return "shoppingCart";
 		}
-
+		
 	}
 
 	@GetMapping("AccountInformation.html")
@@ -91,6 +92,7 @@ public class MyController {
 		return "contact";
 	}
 
+
 	@GetMapping("productDetails.html")
 	public String productDetails() {
 		return "productDetails";
@@ -104,6 +106,63 @@ public class MyController {
 	@GetMapping("service.html")
 	public String service() {
 		return "service";
+	}
+
+	@GetMapping("AccountManagement")
+	public String AccountManagement() {
+		return "admin/AccountManagement";
+	}
+
+	@GetMapping("AddAccount")
+	public String AddAccount() {
+		return "admin/AddAccount";
+	}
+
+	@GetMapping("EditAccount")
+	public String EditAccount() {
+		return "admin/AddProduct";
+	}
+
+	@GetMapping("ProductManagement")
+	public String ProductManagement() {
+		return "admin/ProductManagement";
+	}
+
+	@GetMapping("AddProduct")
+	public String AddProduct() {
+		return "admin/AddProduct";
+	}
+
+	@GetMapping("Edit")
+	public String Edit() {
+		return "admin/AddProduct";
+	}
+
+	@GetMapping("ServiceManagement")
+	public String ServiceManagement() {
+		return "admin/ServiceManagement";
+	}
+
+	@GetMapping("AddService")
+	public String AddService() {
+		return "admin/AddService";
+	}
+
+	@GetMapping("EditService")
+	public String EditService() {
+		return "admin/AddService";
+	}
+	@GetMapping("ThongKeDoanhThu")
+	public String ThongKeDoanhThu() {
+		return "admin/ThongKeDoanhThu";
+	}
+	@GetMapping("ThongKeDichVu")
+	public String ThongKeDichVu() {
+		return "admin/ThongKeDichVu";
+	}
+	@GetMapping("ThongKeSanPham")
+	public String ThongKeSanPham() {
+		return "admin/ThongKeSanPham";
 	}
 
 }

@@ -43,7 +43,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">The Pet Care Shop</a>
+			<a class="navbar-brand" th:href="@{/index}">The Pet Care Shop</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -52,16 +52,13 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item "><a href="index.html" class="nav-link">Trang
-							chủ</a></li>
-					<li class="nav-item"><a href="menu.html" class="nav-link">Sản
-							phẩm</a></li>
-					<li class="nav-item active"><a href="service.html"
-						class="nav-link">Dịch vụ</a></li>
-
-					<li class="nav-item cta"><a href="shoppingCart.html"
-						class="nav-link"><i class='bx bx-cart-add'
-							style="font-size: 20px;"></i> Giỏ hàng</a></li>
+					<li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang chủ</a></li>
+					<li class="nav-item"><a th:href="@{/menu}" class="nav-link">Sản phẩm</a></li>
+					<li class="nav-item"><a th:href="@{/dichvu}" class="nav-link">Dịch vụ</a></li>
+					<li class="nav-item cta">
+						<a th:href="@{/User/Card}" th:method="GET" class="nav-link">
+						<i class='bx bx-cart-add' style="font-size: 20px;"> </i> Giỏ hàng</a>
+					</li>
 				</ul>
 			</div>
 		</div>

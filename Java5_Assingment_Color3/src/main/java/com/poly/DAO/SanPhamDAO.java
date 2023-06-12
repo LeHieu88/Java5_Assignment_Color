@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.poly.Model.NguoiDungDichVu;
 import com.poly.Model.SanPham;
 
 public interface SanPhamDAO extends JpaRepository<SanPham, Integer> {
@@ -20,6 +19,6 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Integer> {
 	@Query("SELECT s FROM SanPham s WHERE s.nhaCungCap.id = :nhaCungCapId")
 	List<SanPham> findBySanPhamId(@Param("nhaCungCap") Integer nhaCungCapId);
 
-	SanPham findById(int id);
+	SanPham findById(int sp);
 
 }

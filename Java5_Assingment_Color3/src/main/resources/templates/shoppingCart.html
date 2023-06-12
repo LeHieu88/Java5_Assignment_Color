@@ -191,7 +191,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">The Pet Care Shop</a>
+			<a class="navbar-brand" th:href="@{/index}">The Pet Care Shop</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -200,16 +200,13 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item "><a href="index.html" class="nav-link">Trang
-							chủ</a></li>
-					<li class="nav-item active"><a href="menu.html"
-						class="nav-link">Sản phẩm</a></li>
-					<li class="nav-item"><a href="service.html" class="nav-link">Dịch
-							vụ</a></li>
-
-					<li class="nav-item cta"><a href="shoppingCart.html"
-						class="nav-link"><i class='bx bx-cart-add'
-							style="font-size: 20px;"></i> Giỏ hàng</a></li>
+					<li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang chủ</a></li>
+					<li class="nav-item"><a th:href="@{/menu}" class="nav-link">Sản phẩm</a></li>
+					<li class="nav-item"><a th:href="@{/dichvu}" class="nav-link">Dịch vụ</a></li>
+					<li class="nav-item cta">
+						<a th:href="@{/User/Card}" th:method="GET" class="nav-link">
+						<i class='bx bx-cart-add' style="font-size: 20px;"> </i> Giỏ hàng</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -240,50 +237,36 @@
 			<div class="row">
 				<div class="col-md-12 ftco-animate">
 					<div class="product-cart">
-						<div class="product-card">
-							<div class="row">
-								<div class="col-lg-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-lg-4">
-									<img src="images/menu-1.jpg" alt="Colorlib Template">
-								</div>
-								<div class="col-lg-4">
-									<div class="product-name">Grilled Beef with potatoes</div>
-									<div class="product-soluong">
-										<span>Quantity:</span> <input type="text" value="1">
-										<button class="btn btn-outline-primary btn-sm">+</button>
-										<button class="btn btn-outline-primary btn-sm">-</button>
+						<form action="/Cart/Checkout" method="post">
+							<div th:each="item : ${gioHangSanPhamInfoList}"
+								class="product-card">
+								<div class="row">
+									<div class="col-lg-1">
+										<input type="checkbox">
 									</div>
-									<p>$18.99</p>
-									<p class="btn-card">
-										<button class="btn btn-primary btn-outline-primary">Remove</button>
-									</p>
+									<div class="col-lg-4">
+										<img th:src="@{'/images/' + ${item.hinhAnh}}"
+											alt="Colorlib Template">
+									</div>
+									<div class="col-lg-4">
+										<div class="product-name" th:text="${item.tenSanPham}"></div>
+										<div class="product-soluong">
+											<span>Quantity:</span> <input type="text" name="quantity"
+												id="quantityInput" th:value="${item.soLuongSanPham}">
+											<button class="btn btn-outline-primary btn-sm"
+												onclick="increaseValue(this)">+</button>
+											<button class="btn btn-outline-primary btn-sm"
+												onclick="decreaseValue(this)">-</button>
+										</div>
+										<span class="tongTien" id="totalPriceSpan"
+											th:text="${item.gia}"></span> <span class="price"
+											th:text="${item.gia}" hidden></span>
+										<p class="btn-card">
+											<button class="btn btn-primary btn-outline-primary">Remove</button>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="product-card">
-							<div class="row">
-								<div class="col-lg-1">
-									<input type="checkbox">
-								</div>
-								<div class="col-lg-4">
-									<img src="images/menu-2.jpg" alt="Colorlib Template">
-								</div>
-								<div class="col-lg-4">
-									<div class="product-name">Grilled Chicken with vegetables</div>
-									<div class="product-soluong">
-										<span>Quantity:</span> <input type="text" value="2">
-										<button class="btn btn-outline-primary btn-sm">+</button>
-										<button class="btn btn-outline-primary btn-sm">-</button>
-									</div>
-									<p>$15.99</p>
-									<p class="btn-card">
-										<button class="btn btn-primary btn-outline-primary">Remove</button>
-									</p>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="container">
 						<div class="payment-options">
@@ -307,13 +290,13 @@
 											<img src="./images/img/doAn/cho/2.jpg" alt="Product Image">
 										</div>
 										<div class="product-info">
-											<p class="product-quantity">Số lượng: 1</p>
+											<!-- <p class="product-quantity">Số lượng: 1</p>
 											<p class="product-price">Đơn giá: 400.000</p>
 											<p class="product-vat">Thuế VAT (10%): 40.000</p>
-											<p class="product-total">Tổng tiền: 440.000</p>
+											<p class="product-total">Tổng tiền: 440.000</p> -->
 										</div>
 									</div>
-									<button class="btn btn-primary btn-block">Đặt hàng</button>
+									<button type="submit" class="btn btn-primary btn-block">Thanh toán</button>
 								</div>
 							</div>
 						</div>
@@ -343,7 +326,7 @@
 							</div>
 						</div>
 					</div>
-
+					</form>
 				</div>
 			</div>
 		</div>
@@ -377,7 +360,54 @@
 						});
 					});
 				});
+
+		function increaseValue(button) {
+			var input = button.parentNode.querySelector('input[type="text"]');
+			var value = parseInt(input.value);
+			input.value = value + 1;
+
+			var quantity = parseInt(input.value);
+			var priceElement = input.parentNode.parentNode
+					.querySelector('.price');
+			var price = parseFloat(priceElement.textContent);
+			var totalPrice = quantity * price;
+			document.getElementById("totalPriceSpan").textContent = totalPrice
+					.toFixed(2);
+		}
+
+		function decreaseValue(button) {
+			var input = button.parentNode.querySelector('input[type="text"]');
+			var value = parseInt(input.value);
+
+			if (value > 0) {
+				input.value = value - 1;
+
+				var quantity = parseInt(input.value);
+				var priceElement = input.parentNode.parentNode
+						.querySelector('.price');
+				var price = parseFloat(priceElement.textContent);
+				var totalPrice = quantity * price;
+				document.getElementById("totalPriceSpan").textContent = totalPrice
+						.toFixed(2);
+			}
+		}
+
+		function submitForm() {
+			var input = document.getElementById('quantityInput');
+			var value = input.value;
+			console.log("Giá trị của input là: " + value);
+
+			// Hiển thị thông báo alert
+			alert("Giá trị của input là: " + value);
+
+			return true; // hoặc false nếu bạn muốn ngăn không gửi form
+		}
+
+		function updatePrice(input) {
+
+		}
 	</script>
+
 	<script th:src="@{/js/jquery.min.js}"></script>
 	<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 	<script th:src="@{/js/popper.min.js}"></script>
