@@ -22,42 +22,42 @@ import jakarta.validation.Valid;
 public class RegisterController {
 	@Autowired
 	UserDAO customerDAO;
-	
+
 	@GetMapping("/user/register")
 	public String get_register(Model model) {
 		NguoiDung user = new NguoiDung();
 		model.addAttribute("user", user);
 		return "register";
 	}
-	
-	
+
 	@PostMapping("/user/register")
-	public String post_register(@Valid @ModelAttribute("user") NguoiDung user, BindingResult result, 
-			Model model) {
+	public String post_register(@Valid @ModelAttribute("user") NguoiDung user, BindingResult result, Model model) {
 		// Kiểm tra lỗi nhập liệu
-		if(result.hasErrors()) {
-			return "redirect:/login";
+		if (result.hasErrors()) {
+			return "register";
 		}
 		// Kiểm tra tài khoản có tồn tại hay chưa
 		List<NguoiDung> listUser = customerDAO.findAll();
 		boolean check = false;
-		
+
 		for (NguoiDung nguoiDung : listUser) {
-			if(nguoiDung.getTenDangNhap().equals(user.getTenDangNhap())) {
+			if (nguoiDung.getTenDangNhap().equalsIgnoreCase(user.getTenDangNhap())) {
 				check = false;
-			}else {
+				System.out.println("lỗi");
+				break;
+			} else {
 				check = true;
-			}	
+			}
 		}
 		// Tài khoản user chức vụ = false, active = true
-		if(check==true) {
+		if (check == true) {
 			user.setChucVu(false);
 			user.setKhoa(true);
 			customerDAO.save(user);
 			return "redirect:/login";
-		}else {
+		} else {
 			return "redirect:/user/register";
 		}
-		
+
 	}
 }

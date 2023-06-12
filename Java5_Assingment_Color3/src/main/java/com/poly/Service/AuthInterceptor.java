@@ -19,11 +19,11 @@ public class AuthInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		NguoiDung user = session.get("session_NguoiDung"); // lấy từ session
-		
+
 		System.out.println(user);
 		System.out.println(user);
 		System.out.println(user);
-		
+
 		if (user == null) {
 			response.sendRedirect("/login");
 			return false;
@@ -32,7 +32,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 				response.sendRedirect("/login");
 				return false;
 			} else if (user.isChucVu()) {
-				response.sendRedirect("/admin/editaccount");
 				return true;
 			}
 		}

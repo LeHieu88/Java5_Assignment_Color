@@ -184,6 +184,8 @@ public class Admin_ProductController {
 
 				// Cập nhật tên file ảnh cho sản phẩm
 				item.setHinhAnh(fileName);
+			} else {
+				item.setHinhAnh(sanPham.getHinhAnh());
 			}
 		} catch (Exception e) {
 			// Xử lý lỗi khi lưu file

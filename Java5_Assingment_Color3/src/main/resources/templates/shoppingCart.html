@@ -200,13 +200,16 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang chủ</a></li>
-					<li class="nav-item"><a th:href="@{/menu}" class="nav-link">Sản phẩm</a></li>
-					<li class="nav-item"><a th:href="@{/dichvu}" class="nav-link">Dịch vụ</a></li>
-					<li class="nav-item cta">
-						<a th:href="@{/User/Card}" th:method="GET" class="nav-link">
-						<i class='bx bx-cart-add' style="font-size: 20px;"> </i> Giỏ hàng</a>
-					</li>
+					<li class="nav-item active"><a th:href="@{/index}"
+						class="nav-link">Trang chủ</a></li>
+					<li class="nav-item"><a th:href="@{/menu}" class="nav-link">Sản
+							phẩm</a></li>
+					<li class="nav-item"><a th:href="@{/dichvu}" class="nav-link">Dịch
+							vụ</a></li>
+					<li class="nav-item cta"><a th:href="@{/User/Card}"
+						th:method="GET" class="nav-link"> <i class='bx bx-cart-add'
+							style="font-size: 20px;"> </i> Giỏ hàng
+					</a></li>
 				</ul>
 			</div>
 		</div>
@@ -249,20 +252,24 @@
 											alt="Colorlib Template">
 									</div>
 									<div class="col-lg-4">
-										<div class="product-name" th:text="${item.tenSanPham}"></div>
+										<div class="product-name" id="itemid"
+											th:text="${item.tenSanPham}"></div>
 										<div class="product-soluong">
 											<span>Quantity:</span> <input type="text" name="quantity"
 												id="quantityInput" th:value="${item.soLuongSanPham}">
-											<button class="btn btn-outline-primary btn-sm"
-												onclick="increaseValue(this)">+</button>
-											<button class="btn btn-outline-primary btn-sm"
-												onclick="decreaseValue(this)">-</button>
+											<div class="btn btn-outline-primary btn-sm"
+												onclick="increaseValue(this)" data-gia="${item.gia}">+</div>
+											<div class="btn btn-outline-primary btn-sm"
+												onclick="decreaseValue(this)" data-gia="${item.gia}">-</div>
+
+
 										</div>
 										<span class="tongTien" id="totalPriceSpan"
-											th:text="${item.gia}"></span> <span class="price"
-											th:text="${item.gia}" hidden></span>
+											th:text="${item.gia}"></span><br> <span class="price"
+											th:text="${item.gia}"></span>
 										<p class="btn-card">
-											<button class="btn btn-primary btn-outline-primary">Remove</button>
+											<a type="button" th:href="@{/deleteCartProduct}"
+												class="btn btn-primary btn-outline-primary">Remove</a>
 										</p>
 									</div>
 								</div>
@@ -296,7 +303,8 @@
 											<p class="product-total">Tổng tiền: 440.000</p> -->
 										</div>
 									</div>
-									<button type="submit" class="btn btn-primary btn-block">Thanh toán</button>
+									<button type="submit" class="btn btn-primary btn-block">Thanh
+										toán</button>
 								</div>
 							</div>
 						</div>
@@ -366,16 +374,25 @@
 			var value = parseInt(input.value);
 			input.value = value + 1;
 
+			var totalPriceSpan = input.closest('.product-card').querySelector(
+					'#totalPriceSpan');
+
 			var quantity = parseInt(input.value);
+
 			var priceElement = input.parentNode.parentNode
 					.querySelector('.price');
 			var price = parseFloat(priceElement.textContent);
+
+			var productName = input.closest('.product-card').querySelector(
+					'#itemid').textContent;
+
 			var totalPrice = quantity * price;
-			document.getElementById("totalPriceSpan").textContent = totalPrice
-					.toFixed(2);
+
+			totalPriceSpan.textContent = totalPrice.toFixed(2);
 		}
 
 		function decreaseValue(button) {
+
 			var input = button.parentNode.querySelector('input[type="text"]');
 			var value = parseInt(input.value);
 
@@ -383,12 +400,20 @@
 				input.value = value - 1;
 
 				var quantity = parseInt(input.value);
+
+				var totalPriceSpan = input.closest('.product-card')
+						.querySelector('#totalPriceSpan');
+
 				var priceElement = input.parentNode.parentNode
 						.querySelector('.price');
 				var price = parseFloat(priceElement.textContent);
+
+				var productName = input.closest('.product-card').querySelector(
+						'#itemid').textContent;
+
 				var totalPrice = quantity * price;
-				document.getElementById("totalPriceSpan").textContent = totalPrice
-						.toFixed(2);
+
+				totalPriceSpan.textContent = totalPrice.toFixed(2);
 			}
 		}
 
