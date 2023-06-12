@@ -62,25 +62,30 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String postLogin(@Valid @ModelAttribute("user") NguoiDung user, BindingResult result,
-			Model model) {
+	public String postLogin(@Valid @ModelAttribute("user") NguoiDung user, BindingResult result, Model model) {
 		// Kiểm tra lỗi
-		
-		
+
 		NguoiDung ng = customerDAO.findByTenDangNhap(user.getTenDangNhap());
 
-		if(ng.getTenDangNhap().equals(user.getTenDangNhap()) && ng.getMatKhau().equals(user.getMatKhau())) {
-			sessionService.set("session_NguoiDung", ng);
-			if(ng.isChucVu()) {
-				return "admin/AccountManagement";
+		if (ng.isKhoa()) {
+			if (ng.getTenDangNhap().equals(user.getTenDangNhap()) && ng.getMatKhau().equals(user.getMatKhau())) {
+				sessionService.set("session_NguoiDung", ng);
+				if (ng.isChucVu()) {
+					return "redirect:/Admin/AccountManagement";
+				} else {
+					return "redirect:/index";
+				}
+
+			} else if (!ng.isKhoa()) {
+				System.out.println(user.khoa);
+				return "redirect:/login";
 			}
-			else {
-				return "redirect:/index";
-			}
-			
-		}else {
+		} else {
 			return "redirect:/login";
+
 		}
+		System.out.println(user.khoa);
+		return "redirect:/login";
 	}
 
 	@GetMapping("/logout")

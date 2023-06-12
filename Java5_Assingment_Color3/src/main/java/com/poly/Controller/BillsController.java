@@ -48,16 +48,6 @@ public class BillsController {
 	@PostMapping("/Cart/Checkout")
 	public String pay(Model model) {
 		// lấy thông tin 
-		NguoiDung ng = session.get("session_NguoiDung");
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		return "redirect:/index";
+		NguoiDung ng = session.get("session_NguoiDung");		return "redirect:/index";
 	}
 }

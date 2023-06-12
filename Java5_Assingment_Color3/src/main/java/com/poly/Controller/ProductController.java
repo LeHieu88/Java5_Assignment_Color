@@ -72,7 +72,6 @@ public class ProductController {
 		List<GioHangSanPhamInfo> gioHangSanPhams = new ArrayList<>();
 		for (GioHangSanPham gioHangSanPham : gioHangSanPhamDAO.findAll()) {
 			GioHangSanPhamInfo gioHangSanPhamInfo = new GioHangSanPhamInfo();
-
 			gioHangSanPhamInfo.setGia(gioHangSanPham.getSanPham().gia);
 			gioHangSanPhamInfo.setHinhAnh(gioHangSanPham.getSanPham().hinhAnh);
 			gioHangSanPhamInfo.setMoTa(gioHangSanPham.getSanPham().moTa);
@@ -93,53 +92,60 @@ public class ProductController {
 	@PostMapping("/addCart/{id}")
 	public String addToCart(Model model, @PathVariable("id") int id, HttpServletRequest request) {
 		// Get dữ liệu
-		String soLuong = request.getParameter("quantity");
-		System.out.println("Quantity: " + soLuong);
-		NguoiDung ng = (NguoiDung) session.get("session_NguoiDung");
-		Date ngayTao = new Date();
+		// String soLuong = request.getParameter("quantity");
+		// System.out.println("Quantity: " + soLuong);
+		try {
+			NguoiDung ng = (NguoiDung) session.get("session_NguoiDung");
 
-		SanPham pham = sanPhamDAO.findById(id);
-		List<SanPham> listSp = new ArrayList<>();
-		listSp.add(pham);
-		NguoiDung ngDung = customerDAO.findByTenDangNhap(ng.getTenDangNhap());
-		// Tạo giỏ hàng
-		GioHang gioHang = new GioHang();
-		List<GioHang> listgh = gioHangDAO.findAll();
-		boolean check = false;
-		for (GioHang gio : listgh) {
-			if (gio.getNguoiDung().nguoi_dung_id == ngDung.getNguoi_dung_id()) {
-				gioHang = gio;
-			}
-			check = true;
-		}
+			Date ngayTao = new Date();
 
-		List<GioHangSanPham> listghsp = gioHangSanPhamDAO.findAll();
-		if (check == true) {
-
-			for (GioHangSanPham gioHangSp : listghsp) {
-				if (id == gioHangSp.getSanPham().getId()) {
-					System.out.println("Sản phẩm đã tồn tại trong giỏ hàng");
-					return "redirect:/index";
-				} else {
-					GioHangSanPham gioHangSanPham = new GioHangSanPham();
-					gioHangSanPham.setGioHang(gioHang);
-					gioHangSanPham.setSanPham(pham);
-					// gioHangSanPham.setSoLuong(Integer.valueOf(quantity));
-					gioHangSanPhamDAO.save(gioHangSanPham);
+			SanPham pham = sanPhamDAO.findById(id);
+			List<SanPham> listSp = new ArrayList<>();
+			listSp.add(pham);
+			NguoiDung ngDung = customerDAO.findByTenDangNhap(ng.getTenDangNhap());
+			// Tạo giỏ hàng
+			GioHang gioHang = new GioHang();
+			List<GioHang> listgh = gioHangDAO.findAll();
+			boolean check = false;
+			for (GioHang gio : listgh) {
+				if (gio.getNguoiDung().nguoi_dung_id == ngDung.getNguoi_dung_id()) {
+					gioHang = gio;
 				}
+				check = true;
 			}
-		} else {
-			gioHang.setNguoiDung(ng);
-			gioHang.setNgay_tao(ngayTao);
-			gioHangDAO.save(gioHang);
 
-			// Tạo giỏ hàng sản phẩm
-			GioHangSanPham gioHangSanPham = new GioHangSanPham();
-			gioHangSanPham.setGioHang(gioHang);
-			gioHangSanPham.setSanPham(pham);
-			// gioHangSanPham.setSoLuong(Integer.valueOf(quantity));
-			gioHangSanPhamDAO.save(gioHangSanPham);
-			System.out.println("B");
+			List<GioHangSanPham> listghsp = gioHangSanPhamDAO.findAll();
+			if (check == true) {
+
+				for (GioHangSanPham gioHangSp : listghsp) {
+					if (id == gioHangSp.getSanPham().getId()) {
+						System.out.println("Sản phẩm đã tồn tại trong giỏ hàng");
+						return "redirect:/index";
+					} else {
+						GioHangSanPham gioHangSanPham = new GioHangSanPham();
+						gioHangSanPham.setGioHang(gioHang);
+						gioHangSanPham.setSanPham(pham);
+						gioHangSanPham.setSoLuong(1);
+						gioHangSanPhamDAO.save(gioHangSanPham);
+					}
+				}
+			} else {
+				gioHang.setNguoiDung(ng);
+				gioHang.setNgay_tao(ngayTao);
+				gioHangDAO.save(gioHang);
+
+				// Tạo giỏ hàng sản phẩm
+				GioHangSanPham gioHangSanPham = new GioHangSanPham();
+				gioHangSanPham.setGioHang(gioHang);
+				gioHangSanPham.setSanPham(pham);
+				gioHangSanPham.setSoLuong(1);
+				gioHangSanPhamDAO.save(gioHangSanPham);
+				System.out.println("B");
+				System.out.println(gioHangSanPham.getSoLuong());
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 
 		System.out.println(new Date());
