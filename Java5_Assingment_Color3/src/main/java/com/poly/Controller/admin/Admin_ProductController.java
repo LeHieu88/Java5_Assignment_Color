@@ -116,17 +116,16 @@ public class Admin_ProductController {
 			if (!file.isEmpty()) {
 				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-				// Đường dẫn đến thư mục images trong thư mục nguồn
-				// (src/main/resources/static/images)
-				String imagePath = "static/images/";
-				Path uploadDir = Paths.get(ResourceUtils.getFile(imagePath).getAbsolutePath());
+				// Đường dẫn đến thư mục images trong thư mục static
+				String imagePath = "classpath:static/images/";
+				Path uploadDir = Paths.get(ResourceUtils.getURL(imagePath).toURI());
 				Path filePath = uploadDir.resolve(fileName);
 
 				// Copy file vào thư mục images
 				Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
 				// Cập nhật tên file ảnh cho sản phẩm
-				s.setHinhAnh("images/" + fileName);
+				s.setHinhAnh(fileName);
 			}
 
 			Optional<NhaCungCap> optionalNhaCungCap = nhaCungCapDAO.findById(nhaCungCapId);
@@ -170,21 +169,21 @@ public class Admin_ProductController {
 		}
 
 		// Lưu hình vào thư mục
+		String imagePath = "classpath:static/images/";
+
 		try {
 			if (!file.isEmpty()) {
 				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-				// Đường dẫn đến thư mục images trong thư mục nguồn
-				// (src/main/resources/static/images)
-				String imagePath = "src/main/resources/static/images";
-				Path uploadDir = Paths.get(ResourceUtils.getFile(imagePath).getAbsolutePath());
+				// Đường dẫn đến thư mục images trong thư mục static
+				Path uploadDir = Path.of(ResourceUtils.getURL(imagePath).toURI());
 				Path filePath = uploadDir.resolve(fileName);
-				System.out.println(uploadDir);
+
 				// Copy file vào thư mục images
 				Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
 				// Cập nhật tên file ảnh cho sản phẩm
-				item.setHinhAnh("images/" + fileName);
+				item.setHinhAnh(fileName);
 			} else {
 				item.setHinhAnh(sanPham.getHinhAnh());
 			}
