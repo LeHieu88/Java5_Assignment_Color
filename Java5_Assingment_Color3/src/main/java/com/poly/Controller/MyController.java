@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.poly.DAO.DichVuDAO;
 import com.poly.DAO.GioHangDAO;
 import com.poly.DAO.GioHangSanPhamDAO;
+import com.poly.DAO.NguoiDungDAO;
 import com.poly.DAO.SanPhamDAO;
 import com.poly.DAO.UserDAO;
 import com.poly.Model.DichVu;
@@ -54,6 +55,8 @@ public class MyController {
 	GioHangSanPhamDAO gioHangSanPhamDAO;
 	@Autowired
 	GioHangDAO gioHangDAO;
+	@Autowired
+	SessionService session;
 
 	@GetMapping("/index")
 	public String index(Model model) {
@@ -119,6 +122,20 @@ public class MyController {
 	@GetMapping("reservation.html")
 	public String reservation() {
 		return "reservation";
+	}
+
+	@GetMapping("editProfile")
+	public String editProfile(Model model) {
+		NguoiDung ng = (NguoiDung) session.get("session_NguoiDung");
+		NguoiDung ngDung = customerDAO.findByTenDangNhap(ng.getTenDangNhap());
+		model.addAttribute("User", ngDung);
+		return "AccountInformation.html";
+	}
+
+	@PostMapping("editProfile")
+	public String updataProfile(Model model, @ModelAttribute("User") NguoiDung u) {
+		customerDAO.save(u);
+		return "AccountInformation.html";
 	}
 
 //	@PostMapping("/deleteCartProduct")

@@ -34,7 +34,7 @@
 
 <body>
 	<!-- Trang user -->
-	<form class="profile-user">
+	<form class="profile-user" action="editProfile" method="post">
 		<div class="d-flex col-md-12">
 			<div>
 				<h2>Thông tin tài khoản</h2>
@@ -43,24 +43,35 @@
 				</div>
 			</div>
 			<div class="user-info col-md-7">
+				<input th:value="${User.nguoi_dung_id}" name="nguoi_dung_id"
+					type="text" hidden class="form-control"> <input
+					th:value="${User.chucVu}" name="chucVu" type="text" hidden
+					class="form-control"> <input th:value="${User.khoa}"
+					name="khoa" type="text" hidden class="form-control">
+
 				<div class="mb-2">
-					<label>Họ tên</label> <input type="text" class="form-control">
+					<label>Họ tên</label> <input th:value="${User.hoTen}" name="hoTen"
+						type="text" class="form-control">
 				</div>
 				<div class="mb-2">
-					<label>Tài khoản</label> <input type="text" class="form-control">
+					<label>Tài khoản</label> <input th:value="${User.tenDangNhap}"
+						name="tenDangNhap" type="text" class="form-control">
 				</div>
 				<div class="mb-2">
-					<label>Mật khẩu</label> <input type="text" class="form-control">
+					<label>Mật khẩu</label> <input th:value="${User.matKhau}"
+						name="matKhau" type="text" class="form-control">
 				</div>
 				<div class="mb-2">
-					<label>Email</label> <input type="text" class="form-control">
+					<label>Email</label> <input th:value="${User.email}" name="email"
+						type="text" class="form-control">
 				</div>
 				<div class="mb-2">
-					<label>Số điện thoại</label> <input type="text"
-						class="form-control">
+					<label>Số điện thoại</label> <input th:value="${User.soDienThoai}"
+						name="soDienThoai" type="text" class="form-control">
 				</div>
 				<div class="mb-2">
-					<label>Địa chỉ</label> <input type="text" class="form-control">
+					<label>Địa chỉ</label> <input th:value="${User.diaChi}"
+						name="diaChi" type="text" class="form-control">
 				</div>
 				<div class="mb-2">
 					<button type="submit" class="btn btn-primary">Chỉnh sửa</button>

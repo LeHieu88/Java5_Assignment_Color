@@ -99,7 +99,7 @@
 
 				<div class="col-md-12 col-lg-12">
 					<div class="heading-menu text-center ftco-animate">
-						<h3>Thức ăn cho chó</h3>
+						<h3>Menu</h3>
 					</div>
 					<div class="row">
 
@@ -109,17 +109,14 @@
 								<div class="menu-img img"
 									th:style="'background-image: url(\''+@{'/images/' + ${item.hinhAnh}} + '\');'"></div>
 								<div class="text">
-									<div class="d-flex">
-										<div class="one-half">
-											<h3 th:text="${item.tenSanPham}"></h3>
+									<div class="d-flex row">
+										<div class=" col-md-7">
+											<h5 th:text="${item.tenSanPham}"></h5>
 										</div>
-										<div class="one-forth">
-											<span class="price"><span th:text="${item.gia}"></span></span>
+										<div class=" col-md-5" style="color: black;">
+											<span class="price"><span th:text="${item.gia}+' VND'"></span></span>
 										</div>
 									</div>
-									<p>
-										<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-									</p>
 								</div>
 							</a>
 

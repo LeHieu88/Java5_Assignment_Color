@@ -89,7 +89,7 @@
 												<!-- Hiển thị các thuộc tính của sản phẩm -->
 												<td th:text="${sanPham.tenSanPham}"></td>
 												<td th:text="${sanPham.khoList[0].soLuong}"></td>
-												<td th:text="${sanPham.gia}"></td>
+												<td th:text="${sanPham.gia}+' VND'"></td>
 												<td><img th:src="@{/images/} + ${sanPham.hinhAnh}"
 													alt="Product Image" style="width: 95%" height="150px"></td>
 												<td th:text="${sanPham.moTa}"></td>
