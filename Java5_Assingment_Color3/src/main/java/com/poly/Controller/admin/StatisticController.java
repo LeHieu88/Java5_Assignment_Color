@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.DAO.StatisticRepository;
+import com.poly.Model.DichVuStatistics;
 import com.poly.Model.ProductStatistics;
 import com.poly.Model.Statistic;
 import com.poly.Service.DichVuService;

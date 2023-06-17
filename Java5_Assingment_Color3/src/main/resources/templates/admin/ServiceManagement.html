@@ -57,7 +57,8 @@
 				<div class="row">
 					<div class="col-12">
 						<a href="AddService"><input type="submit" value="Thêm dịch vụ"
-							class="btn btn-success"></a>
+							class="btn btn-success"></a> <a href="AddService"><input
+							type="submit" value="Thêm đơn dịch vụ" class="btn btn-success"></a>
 					</div>
 				</div>
 				<div class="container-fluid">
@@ -84,7 +85,7 @@
 										<tbody>
 											<tr th:each="dichVu : ${listDichVu}">
 												<td th:text="${dichVu.tenDichVu}"></td>
-												<td th:text="${dichVu.gia}"></td>
+												<td th:text="${dichVu.gia} +' VND'"></td>
 												<td th:text="${dichVu.moTa}"></td>
 												<td class="text-right py-0 align-middle">
 													<div class="btn-group btn-group-sm">
@@ -92,7 +93,8 @@
 															th:href="@{/Admin/EditService/{dichVuId}(dichVuId=${dichVu.id})}"
 															class="btn btn-info"><i class="fas fa-edit"></i></a> <a
 															th:href="@{/Admin/lockService/{ServiceId}/{trangThai}(ServiceId=${dichVu.id},trangThai=${dichVu.trangThai})}"
-															class="btn btn-danger"> <i
+															class="btn btn-danger" onclick="showLockConfirmation()">
+															<i
 															th:class="${dichVu.trangThai ? 'fa fa-lock' : 'fa fa-unlock-alt'}"
 															th:value="${dichVu.trangThai}"></i>
 														</a>
@@ -160,6 +162,14 @@
 											});
 						});
 	</script>
+	<script>
+		function showLockConfirmation() {
+			var confirmLock = confirm("Bạn có chắc chắn muốn thực hiện thao tác này?");
+			if (!confirmLock) {
+				event.preventDefault(); // Ngăn chặn chuyển hướng khi không xác nhận
+			}
+		}
+	</script>
 	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 	<!-- Bootstrap 4 -->
 	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -178,10 +188,8 @@
 	<script th:src="@{/plugins/jszip/jszip.min.js}"></script>
 	<script th:src="@{/plugins/pdfmake/pdfmake.min.js}"></script>
 	<script th:src="@{/plugins/pdfmake/vfs_fonts.js}"></script>
-	<script
-		th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
-	<script
-		th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
 	<script
 		th:src="@{/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
 	<!-- AdminLTE App -->

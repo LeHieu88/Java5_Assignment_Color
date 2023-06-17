@@ -63,7 +63,6 @@ public class Admin_DiscountController {
 			@RequestParam(required = false, value = "_ngayBatDau") String ngayBatDau,
 			@RequestParam(required = false, value = "_ngayKetThuc") String ngayKetThuc,
 			@RequestParam("selectedProducts") List<Integer> selectedProductIds) {
-		System.out.println(selectedProductIds);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
@@ -76,6 +75,8 @@ public class Admin_DiscountController {
 			e.printStackTrace();
 		}
 		if (result.hasErrors()) {
+			List<SanPham> sanPhams = sanPhamDAO.findAll();
+			model.addAttribute("listSanPham", sanPhams);
 			return "admin/AddDiscount";
 		}
 		if (m.getNgayBatDau() != null && m.getNgayKetThuc() != null) {
@@ -92,8 +93,8 @@ public class Admin_DiscountController {
 			}
 
 		}
-
 		return "redirect:/Admin/DiscountManagement";
+
 	}
 
 	@RequestMapping("Admin/EditDiscount/{maGiamGia}")

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -79,7 +80,7 @@
 											<tr th:each="statistic : ${statistics}">
 												<td th:text="${statistic[0]}"></td>
 												<td th:text="${statistic[1]}"></td>
-												<td th:text="${statistic[2]}"></td>
+												<td th:text="${statistic[2]} +' VND'"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -134,10 +135,8 @@
 	<script th:src="@{/plugins/jszip/jszip.min.js}"></script>
 	<script th:src="@{/plugins/pdfmake/pdfmake.min.js}"></script>
 	<script th:src="@{/plugins/pdfmake/vfs_fonts.js}"></script>
-	<script
-		th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
-	<script
-		th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
 	<script
 		th:src="@{/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
 	<!-- AdminLTE App -->

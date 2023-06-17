@@ -74,37 +74,21 @@
 									<table id="example1" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th>Tài khoản</th>
-												<th>Họ tên</th>
-												<th>Email</th>
-												<th>Địa chỉ</th>
-												<th>Số điện thoại</th>
-												<th>Chức vụ</th>
-												<th>Tùy chọn</th>
+												<th>Mã đơn</th>
+												<th>Người đặt</th>
+												<th>Ngày đặt</th>
+												<th>Tổng tiền</th>
+
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="nguoiDung : ${listNguoiDung}">
-												<td th:text="${nguoiDung.tenDangNhap}"></td>
-												<td th:text="${nguoiDung.hoTen}"></td>
-												<td th:text="${nguoiDung.email}"></td>
-												<td th:text="${nguoiDung.diaChi}"></td>
-												<td th:text="${nguoiDung.soDienThoai}"></td>
-												<td th:text="${nguoiDung.chucVu ? 'Quản lý' : 'Khách hàng'}"></td>
-												<td class="text-right py-0 align-middle">
-													<div class="btn-group btn-group-sm">
-														<a
-															th:href="@{/Admin/EditAccount/{tenDangNhap}(tenDangNhap=${nguoiDung.tenDangNhap})}"
-															class="btn btn-info"> <i class="fas fa-edit"></i>
-														</a> <a
-															th:href="@{/Admin/lockAccount/{tenDangNhap}/{khoa}(tenDangNhap=${nguoiDung.tenDangNhap},khoa=${nguoiDung.khoa})}"
-															class="btn btn-danger" onclick="showLockConfirmation()">
-															<i
-															th:class="${nguoiDung.khoa ? 'fa fa-lock' : 'fa fa-unlock-alt'}"
-															th:value="${nguoiDung.khoa}"></i>
-														</a>
-													</div>
-												</td>
+											<tr th:each="donHang : ${listDonHang}">
+												<td th:text="${donHang.don_hang_id}"></td>
+												<td th:text="${donHang.nguoiDung.hoTen}"></td>
+												<td
+													th:text="${#dates.format(donHang.ngay_dat_hang, 'dd-MM-yyyy')}"></td>
+												<td th:text="${donHang.tongGiaTri}"></td>
+
 											</tr>
 										</tbody>
 									</table>
