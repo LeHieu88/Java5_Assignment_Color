@@ -119,6 +119,81 @@
 					<!-- /.row -->
 				</div>
 				<!-- /.container-fluid -->
+
+			</section>
+			<section class="content">
+				<form>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card card-primary collapsed-card">
+								<div class="card-header">
+									<h3 class="card-title">Cập nhật tài khoản hiện tại</h3>
+									<div class="card-tools">
+										<button type="button" class="btn btn-tool"
+											data-card-widget="collapse" title="Collapse">
+											<i class="fas fa-plus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<input type="text" id="tenDangNhap" hidden name="tenDangNhap"
+											class="form-control" th:value="${item.tenDangNhap}">
+									</div>
+									<div class="form-group">
+										<label for="hoTen">Họ tên</label> <input type="text"
+											id="hoTen" name="hoTen" class="form-control"
+											th:value="${item.hoTen}">
+									</div>
+
+									<div class="form-group">
+										<label for="email">Email</label> <input type="email"
+											id="email" name="email" class="form-control"
+											th:value="${item.email}">
+									</div>
+									<div class="form-group">
+										<label for="diaChi">Địa chỉ</label> <input type="text"
+											id="diaChi" name="diaChi" class="form-control"
+											th:value="${item.diaChi}">
+									</div>
+									<div class="form-group">
+										<label for="soDienThoai">Số điện thoại</label> <input
+											type="text" name="soDienThoai" id="soDienThoai"
+											class="form-control" th:value="${item.soDienThoai}">
+									</div>
+									<div class="form-group">
+										<input hidden type="password" id="matKhau" name="matKhau"
+											class="form-control" th:value="${item.matKhau}">
+									</div>
+									<div class="form-group">
+
+										<div class="row">
+											<div class="form-check" style="margin-right: 15px">
+												<input hidden class="form-check-input" type="radio"
+													name="chucVu" value="false"
+													th:checked="${item.chucVu == false}">
+											</div>
+											<div class="form-check" style="margin-right: 15px">
+												<input hidden class="form-check-input" type="radio"
+													name="chucVu" value="true"
+													th:checked="${item.chucVu == true}">
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<input type="submit" formaction="/Admin/EditAccount/update"
+								value="Cập nhật tài khoản" class="btn btn-success float-right">
+						</div>
+					</div>
+				</form>
 			</section>
 			<!-- /.content -->
 		</div>

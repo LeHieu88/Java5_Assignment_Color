@@ -37,8 +37,6 @@ public class DichVu {
 	@NotNull(message = "Giá không được để trống")
 	public Double gia;
 
-	@OneToMany(mappedBy = "dichVu")
-	public List<NguoiDungDichVu> nguoiDungDichVuList;
 
 	@OneToMany(mappedBy = "dichVu")
 	public List<DonHangDichVu> donHangDichVuList;

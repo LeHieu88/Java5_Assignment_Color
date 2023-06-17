@@ -1,5 +1,6 @@
 package com.poly.Controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poly.DAO.NguoiDungDAO;
 import com.poly.Model.NguoiDung;
+import com.poly.Service.SessionService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -24,11 +27,25 @@ import jakarta.validation.Valid;
 public class Admin_AccountController {
 	@Autowired
 	NguoiDungDAO nguoiDungDAO;
+	@Autowired
+	SessionService session;
 
 	@GetMapping("Admin/AccountManagement")
 	public String AccountManagement(Model model) {
 		List<NguoiDung> list = nguoiDungDAO.findAll();
-		model.addAttribute("listNguoiDung", list);
+		List nguoiDungList = new ArrayList<>();
+		NguoiDung ng = (NguoiDung) session.get("session_NguoiDung");
+		NguoiDung item = nguoiDungDAO.FindNguoiDungUserName(ng.getTenDangNhap());
+		model.addAttribute("item", item);
+
+		for (NguoiDung nguoiDung : list) {
+			if (nguoiDung.getNguoi_dung_id() != ng.getNguoi_dung_id() && nguoiDung.getTenDangNhap() != null
+					&& !nguoiDung.getTenDangNhap().isEmpty()) {
+				nguoiDungList.add(nguoiDung);
+			}
+		}
+
+		model.addAttribute("listNguoiDung", nguoiDungList);
 		return "admin/AccountManagement";
 	}
 

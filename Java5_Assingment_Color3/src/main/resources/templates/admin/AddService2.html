@@ -9,6 +9,9 @@
 <link
 	th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}"
 	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/all.min.css">
+
 <!-- Font Awesome -->
 <link th:href="@{/plugins/fontawesome-free/css/all.min.css}"
 	rel="stylesheet" />
@@ -18,6 +21,8 @@
 	rel="stylesheet" />
 <link
 	th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}"
 	rel="stylesheet" />
 <link
 	th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}"
@@ -56,8 +61,7 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<form th:action="@{/Admin/AddProduct}" method="post"
-					enctype="multipart/form-data" th:object="${product}"
+				<form th:action="@{/Admin/AddService_Oder}" method="post"
 					id="productForm">
 					<div class="row">
 						<div class="col-md-12">
@@ -71,71 +75,66 @@
 										</button>
 									</div>
 								</div>
-								<div class="form-group">
-									<input name="ngayNhap" hidden id="ngayNhap" />
-								</div>
 
-
-								<input type="text" name="trangThai" hidden value="True"
-									class="form-control">
 								<div class="card-body">
 									<div class="form-group">
-										<label for="inputName">Tên sản phẩm</label> <input type="text"
-											id="inputName" name="tenSanPham" class="form-control"
-											th:field="*{tenSanPham}"
-											th:class="${#fields.hasErrors('tenSanPham')} ? 'form-control is-invalid' : 'form-control'">
-										<small class="error invalid-feedback"
-											th:errors="*{tenSanPham}"></small>
+										<label for="inputName">Người đặt</label> <select
+											class="form-control" name="selectedUser"
+											onchange="handleSelection(this)">
+											<option th:each="NguoiDung : ${listNguoiDung}"
+												th:value="${NguoiDung.nguoi_dung_id}"
+												th:text="${NguoiDung.hoTen}"></option>
+											<option value="Thêm người dùng">Thêm người dùng</option>
+										</select> <input hidden type="text" id="tenNguoiDungInput" name="hoTen">
+										<button type="submit" hidden id="submitButton"
+											formaction="/Admin/AddService_Oder2">Submit</button>
 									</div>
-									<div class="form-group" th:object="${kho}">
-										<label for="inputName">Giá nhập</label>
-										<div class="input-group">
-											<input type="number" name="giaNhap" class="form-control"
-												th:field="*{giaNhap}"
-												th:class="${#fields.hasErrors('giaNhap')} ? 'form-control is-invalid' : 'form-control'">
-											<div class="input-group-append">
-												<span class="input-group-text">$</span>
-											</div>
-											<small class="error invalid-feedback" th:errors="*{giaNhap}"></small>
 
-										</div>
-									</div>
 									<div class="form-group">
-										<label for="inputName">Giá bán</label>
-										<div class="input-group">
-											<input name="gia" type="number" class="form-control"
-												th:field="*{gia}"
-												th:class="${#fields.hasErrors('gia')} ? 'form-control is-invalid' : 'form-control'">
-											<div class="input-group-append">
-												<span class="input-group-text">$</span>
-											</div>
-											<small class="error invalid-feedback" th:errors="*{gia}"></small>
+										<label for="inputName">Dịch vụ</label> <select
+											class="form-control" name="selectedService"
+											onchange="getValue(this)">
+											<option th:each="dichVu : ${dichVus}"
+												th:value="${dichVu.id+ ' - ' + dichVu.gia}"
+												th:text="${dichVu.tenDichVu }"></option>
 
-										</div>
-									</div>
-									<div class="form-group" th:object="${kho}">
-										<label for="inputName">Số lượng</label> <input type="number"
-											id="inputName" name="soLuong" class="form-control"
-											th:field="*{soLuong}"
-											th:class="${#fields.hasErrors('soLuong')} ? 'form-control is-invalid' : 'form-control'">
-										<small class="error invalid-feedback" th:errors="*{soLuong}"></small>
-									</div>
-									<div class="form-group">
-										<label for="inputName">Hình ảnh</label>
-										<div class="custom-file">
-											<input type="file" name="file" class="custom-file-input"
-												id="customFile" onchange="updateFileName(this)"> <label
-												class="custom-file-label" for="customFile">Chọn ảnh</label>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="inputName">Nhà cung cấp</label> <select
-											class="form-control" name="nhaCungCapId">
-											<option th:each="nhaCungCap : ${listNhaCungCaps}"
-												th:value="${nhaCungCap.id}"
-												th:text="${nhaCungCap.tenNhaCungCap}"></option>
 										</select>
 									</div>
+
+
+									<div class="form-group clearfix">
+										<div class="icheck-primary d-inline">
+											<input type="radio" id="radioPrimary1" name="r1" th:value="1"
+												checked> <label for="radioPrimary1"> 1</label>
+										</div>
+										<div class="icheck-primary d-inline">
+											<input type="radio" id="radioPrimary2" name="r1" th:value="2">
+											<label for="radioPrimary2"> 2</label>
+										</div>
+										<div class="icheck-primary d-inline">
+											<input type="radio" id="radioPrimary3" name="r1" th:value="3">
+											<label for="radioPrimary3"> 3</label>
+										</div>
+										<div class="icheck-primary d-inline">
+											<input type="radio" id="radioPrimary4" name="r1" th:value="4">
+											<label for="radioPrimary4"> 4</label>
+										</div>
+										<div class="icheck-primary d-inline">
+											<input type="radio" id="radioPrimary5" name="r1" th:value="5">
+											<label for="radioPrimary5"> 5</label>
+										</div>
+										<div class="icheck-primary d-inline">
+											<input type="radio" id="radioPrimary6" name="r1" th:value="6">
+											<label for="radioPrimary6"> 6</label>
+										</div>
+									</div>
+
+									<input id="priceInput" type="text" readonly> <input
+										id="totalPriceInput" name="totalPrice">
+
+
+
+
 									<div class="form-group">
 										<label for="inputDescription">Mô tả</label>
 										<textarea id="inputDescription" name="moTa"
@@ -170,12 +169,55 @@
 	<!-- ./wrapper -->
 	<!-- jQuery -->
 	<script>
-		function updateFileName(input) {
-			var fileName = input.files[0].name;
-			var label = input.nextElementSibling;
-			label.innerText = fileName;
+		function getValue(selectElement) {
+			var selectedValue = selectElement.value;
+			var selectedText = selectElement.options[selectElement.selectedIndex].text;
+
+			// Làm gì đó với giá trị và văn bản đã chọn
+			console.log("Giá trị đã chọn:", selectedValue);
+			console.log("Văn bản đã chọn:", selectedText);
+
+			var price = selectedValue.split(' - ')[1]; // Trích xuất phần giá từ giá trị đã chọn
+			console.log(price); // In giá trị ra console
+			document.getElementById('priceInput').value = price; // Gán giá trị vào input
+
+			var radioInputs = document.querySelectorAll('input[name="r1"]');
+			radioInputs
+					.forEach(function(input) {
+						input
+								.addEventListener(
+										'change',
+										function() {
+											var selectedRadioValue = document
+													.querySelector('input[name="r1"]:checked').value;
+											var totalPrice = parseFloat(price)
+													* parseFloat(selectedRadioValue);
+											console
+													.log("Tổng giá:",
+															totalPrice);
+
+											document
+													.getElementById('totalPriceInput').value = totalPrice; // Gán giá trị vào input
+										});
+					});
 		}
 	</script>
+
+
+	<script>
+		function handleSelection(selectElement) {
+			var selectedOption = selectElement.options[selectElement.selectedIndex];
+			var selectedServiceId = selectedOption.value;
+			var selectedServiceName = selectedOption.text;
+
+			// Hiển thị giá trị dịch vụ đã chọn bằng cửa sổ alert
+			alert("Selected Service ID: " + selectedServiceId
+					+ "\nSelected Service Name: " + selectedServiceName);
+		}
+	</script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
 
 	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 	<!-- Bootstrap 4 -->
@@ -215,6 +257,24 @@
 			var formattedDate = day + "/" + month + "/" + year; // Định dạng thành "ngày/tháng/năm"
 			ngayNhapField.value = formattedDate;
 		});
+	</script>
+
+	<script>
+		function handleSelection(selectElement) {
+			var selectedOption = selectElement.value;
+			if (selectedOption === "Thêm người dùng") {
+				var tenNguoiDung = prompt("Vui lòng nhập tên người dùng:");
+				if (tenNguoiDung) {
+					document.getElementById("tenNguoiDungInput").value = tenNguoiDung;
+					var submitButton = document.getElementById("submitButton");
+					if (submitButton) {
+						submitButton.click();
+					}
+				} else {
+					alert("Vui lòng nhập tên người dùng!");
+				}
+			}
+		}
 	</script>
 
 
