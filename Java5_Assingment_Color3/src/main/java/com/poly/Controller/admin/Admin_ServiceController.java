@@ -143,17 +143,26 @@ public class Admin_ServiceController {
 
 	@PostMapping("Admin/AddService_Oder")
 	public String AddService3(Model model, @RequestParam("selectedUser") int selectedUserId,
-			@RequestParam("r1") String selectedValue1, @RequestParam("totalPrice") double totalPrice) {
-		DonHang donHang = new DonHang();
-		System.out.println(selectedUserId);
-		donHang.setNguoiDung(nguoiDungDAO.findById(selectedUserId));
-		System.out.println(donHang.getNguoiDung());
-		donHang.setNgay_dat_hang(new Date());
-		System.out.println(donHang.getNgay_dat_hang());
-		model.addAttribute("selectedValue1", selectedValue1); // Thêm giá trị selectedValue1 vào model
-		System.out.println(totalPrice);
-		donHang.setTongGiaTri(totalPrice);
-		donHangDAO.save(donHang);
+			@RequestParam("r1") String selectedValue1, @RequestParam("totalPrice") double totalPrice,
+			@RequestParam("id") int selectedService) {
+		try {
+			DonHang donHang = new DonHang();
+			donHang.setNguoiDung(nguoiDungDAO.findById(selectedUserId));
+			donHang.setNgay_dat_hang(new Date());
+			model.addAttribute("selectedValue1", selectedValue1); // Thêm giá trị selectedValue1 vào model
+			System.out.println(selectedService);
+			DichVu dichVu = dichVuDAO.findById(selectedService);
+			donHang.setTongGiaTri(totalPrice);
+			donHangDAO.save(donHang);
+			DonHangDichVu donHangDichVu = new DonHangDichVu();
+			donHangDichVu.setDichVu(dichVu);
+			donHangDichVu.setDonHang(donHang);
+			System.out.println(donHang.getTongGiaTri());
+			donHangDichVuDAO.save(donHangDichVu);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
 		return "redirect:/Admin/AddService_Oder"; // Chuyển qua phương thức khác để nhận giá trị từ model
 	}
 

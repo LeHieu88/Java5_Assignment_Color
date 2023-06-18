@@ -100,6 +100,7 @@
 
 										</select>
 									</div>
+									<input type="text" hidden id="idInput" name="id" readonly>
 
 
 									<div class="form-group clearfix">
@@ -129,17 +130,8 @@
 										</div>
 									</div>
 
-									<input id="priceInput" type="text" readonly> <input
-										id="totalPriceInput" name="totalPrice">
-
-
-
-
-									<div class="form-group">
-										<label for="inputDescription">Mô tả</label>
-										<textarea id="inputDescription" name="moTa"
-											class="form-control" rows="4"></textarea>
-									</div>
+									<input id="priceInput" hidden type="text" readonly> <input
+										id="totalPriceInput" hidden name="totalPrice">
 								</div>
 							</div>
 						</div>
@@ -180,7 +172,9 @@
 			var price = selectedValue.split(' - ')[1]; // Trích xuất phần giá từ giá trị đã chọn
 			console.log(price); // In giá trị ra console
 			document.getElementById('priceInput').value = price; // Gán giá trị vào input
-
+			var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+			var idValue = selectedOption.split(' - ')[0];
+			document.getElementById('idInput').value = idValue;
 			var radioInputs = document.querySelectorAll('input[name="r1"]');
 			radioInputs
 					.forEach(function(input) {
