@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.poly.DAO.DichVuDAO;
 import com.poly.DAO.GioHangDAO;
 import com.poly.DAO.GioHangSanPhamDAO;
-import com.poly.DAO.NguoiDungDAO;
 import com.poly.DAO.SanPhamDAO;
 import com.poly.DAO.UserDAO;
 import com.poly.Model.DichVu;
@@ -55,11 +54,9 @@ public class MyController {
 	GioHangSanPhamDAO gioHangSanPhamDAO;
 	@Autowired
 	GioHangDAO gioHangDAO;
-	@Autowired
-	SessionService session;
 
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model, @ModelAttribute("errorMessage") String errorMessage) {
 		String username = paramService.getString("tenDangNhap", "");
 		List<SanPham> list = new ArrayList<>();
 		for (SanPham sanPham : sanphamDAO.findAll()) {
@@ -75,19 +72,23 @@ public class MyController {
 		}
 		model.addAttribute("listDichVu", listDichVu);
 		model.addAttribute("listSP", list);
+		if(errorMessage.isEmpty()) {
+			model.addAttribute("errorMessage", errorMessage);
+			System.out.println(errorMessage);
+		}
 		return "index";
 	}
 
-	@GetMapping("/card")
-	public String card(Model model) {
-		if (sessionService.get("session_NguoiDung") == null) {
-			System.out.println("Chưa đăng nhập");
-			return "redirect:/index";
-		} else {
-			return "shoppingCart";
-		}
-
-	}
+//	@GetMapping("/card")
+//	public String card(Model model) {
+//		if (sessionService.get("session_NguoiDung") == null) {
+//			System.out.println("Chưa đăng nhập");
+//			return "redirect:/index";
+//		} else {
+//			return "shoppingCart";
+//		}
+//
+//	}
 
 	@GetMapping("AccountInformation.html")
 	public String AccountInformation() {
@@ -123,36 +124,5 @@ public class MyController {
 	public String reservation() {
 		return "reservation";
 	}
-
-	@GetMapping("editProfile")
-	public String editProfile(Model model) {
-		NguoiDung ng = (NguoiDung) session.get("session_NguoiDung");
-		NguoiDung ngDung = customerDAO.findByTenDangNhap(ng.getTenDangNhap());
-		model.addAttribute("User", ngDung);
-		return "AccountInformation.html";
-	}
-
-	@PostMapping("editProfile")
-	public String updataProfile(Model model, @ModelAttribute("User") NguoiDung u) {
-		customerDAO.save(u);
-		return "AccountInformation.html";
-	}
-
-//	@PostMapping("/deleteCartProduct")
-//	public String delete_ProductCart(Model model, @RequestParam("tenSanPham") String tenSanPham) {
-//		NguoiDung ng = (NguoiDung) sessionService.get("session_NguoiDung");
-//		GioHang gh = gioHangDAO.findByNguoiDungId(ng.getNguoi_dung_id());
-//		List<GioHangSanPham> ghsp = gioHangSanPhamDAO.findAll();
-//
-//		for (GioHangSanPham gioHangSanPham : ghsp) {
-//			if (gioHangSanPham.getGioHang().getGio_hang_id() == gh.getGio_hang_id()) {
-//				if (gioHangSanPham.getSanPham().getTenSanPham().equals(tenSanPham)) {
-//					gioHangSanPhamDAO.delete(gioHangSanPham);
-//				}
-//			}
-//		}
-//
-//		return "redirect:/User/Cart";
-//	}
 
 }

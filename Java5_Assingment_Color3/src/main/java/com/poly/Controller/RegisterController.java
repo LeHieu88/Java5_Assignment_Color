@@ -24,40 +24,43 @@ public class RegisterController {
 	UserDAO customerDAO;
 
 	@GetMapping("/user/register")
-	public String get_register(Model model) {
+	public String get_register(Model model, @ModelAttribute("errorMessage") String errorMessage) {
 		NguoiDung user = new NguoiDung();
 		model.addAttribute("user", user);
+		if (!errorMessage.isEmpty()) {
+			model.addAttribute("errorMessage", errorMessage);
+		}
 		return "register";
 	}
 
 	@PostMapping("/user/register")
 	public String post_register(@Valid @ModelAttribute("user") NguoiDung user, BindingResult result, Model model) {
-		// Kiểm tra lỗi nhập liệu
-		if (result.hasErrors()) {
-			return "register";
-		}
-		// Kiểm tra tài khoản có tồn tại hay chưa
-		List<NguoiDung> listUser = customerDAO.findAll();
-		boolean check = false;
-
-		for (NguoiDung nguoiDung : listUser) {
-			if (nguoiDung.getTenDangNhap().equalsIgnoreCase(user.getTenDangNhap())) {
-				check = false;
-				System.out.println("lỗi");
-				break;
-			} else {
-				check = true;
+		List<NguoiDung> list = customerDAO.findAll();
+		for (NguoiDung nguoiDung : list) {
+			if (nguoiDung.getTenDangNhap().equals(user.getTenDangNhap())) {
+				model.addAttribute("errorMessage", "Tên đăng nhập đã tồn tại !");
+				return "register";
+			}
+			if (nguoiDung.getEmail().equals(user.getEmail())) {
+				model.addAttribute("errorMessage", "Email này đã đăng ký !");
+				return "register";
+			}
+			if (nguoiDung.getSoDienThoai().equals(user.getSoDienThoai())) {
+				model.addAttribute("errorMessage", "Số điện thoại này đã đăng ký !");
+				return "register";
 			}
 		}
-		// Tài khoản user chức vụ = false, active = true
-		if (check == true) {
-			user.setChucVu(false);
-			user.setKhoa(true);
-			customerDAO.save(user);
+
+		if (result.hasErrors()) {
+			return "register";
+		}else {
+			NguoiDung ng = user;
+			ng.setChucVu(false);
+			ng.setKhoa(true);
+			customerDAO.save(ng);
 			return "redirect:/login";
-		} else {
-			return "redirect:/user/register";
 		}
+		
 
 	}
 }

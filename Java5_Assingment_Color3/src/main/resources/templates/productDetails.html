@@ -85,7 +85,7 @@
 		</div>
 		<div class="sanpham-container">
 			<form th:action="@{/addCart/{id}(id=${product.id})}" method="post">
-
+				<small  class="text-danger" th:text="${errorMessage}"></small>
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="sanpham-img">

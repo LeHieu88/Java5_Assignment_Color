@@ -261,14 +261,12 @@
 												onclick="increaseValue(this)" data-gia="${item.gia}">+</div>
 											<div class="btn btn-outline-primary btn-sm"
 												onclick="decreaseValue(this)" data-gia="${item.gia}">-</div>
-
-
 										</div>
 										<span class="tongTien" id="totalPriceSpan"
 											th:text="${item.gia}"></span><br> <span class="price"
 											th:text="${item.gia}"></span>
 										<p class="btn-card">
-											<a type="button" th:href="@{/deleteCartProduct}"
+											<a type="button" th:href="@{/delete/{id}(id=${item.idSanPham})}"
 												class="btn btn-primary btn-outline-primary">Remove</a>
 										</p>
 									</div>
@@ -303,7 +301,7 @@
 											<p class="product-total">Tổng tiền: 440.000</p> -->
 										</div>
 									</div>
-									<button type="submit" class="btn btn-primary btn-block">Thanh
+									<button th:formaction="@{/Checkout}" type="submit" class="btn btn-primary btn-block">Thanh
 										toán</button>
 								</div>
 							</div>

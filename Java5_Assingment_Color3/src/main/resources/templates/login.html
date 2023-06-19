@@ -17,11 +17,14 @@
         <div class="row tm-register-row tm-mb-30">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 tm-login-l">
                 <form th:action="@{/login}" th:object="${user}" method="post" class="tm-bg-black p-5 h-100">
+                	<small  class="text-danger" th:text="${errorMessage}"></small>
                     <div class="input-field">
                         <input placeholder="Username" th:field="*{tenDangNhap}" id="tenDangNhap" name="tenDangNhap" class="form-control" type="text">
+                        <small class="text-danger" th:errors="*{tenDangNhap}"></small>
                     </div>
                     <div class="input-field mb-5">
                         <input placeholder="Password" class="form-control" th:field="*{matKhau}" id="matKhau" name="matKhau" type="password">
+                        <small class="text-danger" th:errors="*{matKhau}"></small>
                     </div>
                     <div class="itm-flex-lr ml-3">
                     	<input class="form-check-input" style="opacity: 1;" type="checkbox"

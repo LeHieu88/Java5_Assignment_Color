@@ -41,16 +41,8 @@ public class LoginController {
 		String password = cookieService.getValue("password");
 	}
 
-	void loadProductInCart(Model model) {
-		try {
-			NguoiDung user = (NguoiDung) sessionService.get("Session_custumer");
-		} catch (Exception e) {
-			model.addAttribute("countItem", 0);
-		}
-	}
-
 	@GetMapping("/login")
-	public String getLogin(NguoiDung user, Model model) {
+	public String getLogin(NguoiDung user, Model model, @ModelAttribute("errorMessage") String errorMessage) {
 		checkCookie();
 		String username = cookieService.getValue("tenDangNhap");
 		String password = cookieService.getValue("matKhau");
@@ -58,34 +50,43 @@ public class LoginController {
 		user.setTenDangNhap(username);
 		user.setMatKhau(password);
 		model.addAttribute("user", user);
+		if (!errorMessage.isEmpty()) {
+			model.addAttribute("errorMessage", errorMessage);
+		}
 		return "login";
 	}
 
 	@PostMapping("/login")
 	public String postLogin(@Valid @ModelAttribute("user") NguoiDung user, BindingResult result, Model model) {
-		// Kiểm tra lỗi
-
+//		 Kiểm tra lỗi
+		
 		NguoiDung ng = customerDAO.findByTenDangNhap(user.getTenDangNhap());
-
-		if (ng.isKhoa()) {
-			if (ng.getTenDangNhap().equals(user.getTenDangNhap()) && ng.getMatKhau().equals(user.getMatKhau())) {
-				sessionService.set("session_NguoiDung", ng);
-				if (ng.isChucVu()) {
-					return "redirect:/Admin/AccountManagement";
-				} else {
-					return "redirect:/index";
-				}
-
-			} else if (!ng.isKhoa()) {
-				System.out.println(user.khoa);
-				return "redirect:/login";
-			}
-		} else {
-			return "redirect:/login";
-
+		
+		if (ng == null) {
+			model.addAttribute("errorMessage", "Người dùng không tồn tại");
+			return "login";
 		}
-		System.out.println(user.khoa);
-		return "redirect:/login";
+		if (!ng.getMatKhau().equals(user.getMatKhau())) {
+			model.addAttribute("errorMessage", "Sai mật khẩu !!!");
+			return "login";
+		}
+		if (!ng.isKhoa()) {
+			model.addAttribute("errorMessage", "Tài khoản đã bị khóa");
+			return "login";
+		}
+		
+		else {
+			if(!result.hasErrors()) {
+				return "login";
+			}
+			sessionService.set("session_NguoiDung", ng);
+			if (ng.isChucVu()) {
+				return "redirect:/Admin/AccountManagement";
+			} else {
+				return "redirect:/index";
+			}
+		}
+
 	}
 
 	@GetMapping("/logout")
