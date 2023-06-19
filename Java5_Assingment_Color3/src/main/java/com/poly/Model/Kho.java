@@ -35,8 +35,8 @@ public class Kho {
 	@NotNull(message = "giá nhập không được để trỗng")
 	public Double giaNhap;
 
-//	@Column(name = "ngay_nhap")
-//	@Temporal(TemporalType.DATE)
-//	@NotNull
-//	public Date ngayNhap;
+	@Column(name = "ngay_nhap")
+	@Temporal(TemporalType.DATE)
+	@NotNull
+	public Date ngayNhap;
 }

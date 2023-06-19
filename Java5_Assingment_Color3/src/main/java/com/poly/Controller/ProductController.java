@@ -204,7 +204,7 @@ public class ProductController {
 		}
 		dhDao.updateTongGiaTriAndTrangThai(tongTien, ngDung);
 		
-		return "redirect:/infoCheckout";
+		return "redirect:/User/Cart";
 	}
 	
 	@RequestMapping("/infoCheckout")

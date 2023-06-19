@@ -100,7 +100,7 @@ public class Admin_ProductController {
 		try {
 			Date ngayNhap = dateFormat.parse(ngayNhap1);
 			kho.setNgayNhap(ngayNhap);
-		} catch (ParseException e) {
+		} catch (ParseException e) { 
 			// Xử lý lỗi nếu chuỗi ngày không hợp lệ
 			e.printStackTrace();
 		}
