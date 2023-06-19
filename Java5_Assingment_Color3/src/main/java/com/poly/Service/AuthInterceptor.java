@@ -20,10 +20,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 			throws Exception {
 		NguoiDung user = session.get("session_NguoiDung"); // lấy từ session
 
-		System.out.println(user);
-		System.out.println(user);
-		System.out.println(user);
-
 		if (user == null) {
 			response.sendRedirect("/login");
 			return false;

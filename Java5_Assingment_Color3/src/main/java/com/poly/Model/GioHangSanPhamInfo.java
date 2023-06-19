@@ -9,6 +9,7 @@ import lombok.Data;
 public class GioHangSanPhamInfo {
 	@Id
 	int nguoiDungId;
+	int idSanPham;
 	String tenSanPham;
 	double gia;
 	String moTa;

@@ -76,7 +76,7 @@ public class LoginController {
 		}
 		
 		else {
-			if(result.hasErrors()) {
+			if(!result.hasErrors()) {
 				return "login";
 			}
 			sessionService.set("session_NguoiDung", ng);

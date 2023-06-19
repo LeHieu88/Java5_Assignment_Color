@@ -56,7 +56,7 @@ public class MyController {
 	GioHangDAO gioHangDAO;
 
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model, @ModelAttribute("errorMessage") String errorMessage) {
 		String username = paramService.getString("tenDangNhap", "");
 		List<SanPham> list = new ArrayList<>();
 		for (SanPham sanPham : sanphamDAO.findAll()) {
@@ -72,19 +72,23 @@ public class MyController {
 		}
 		model.addAttribute("listDichVu", listDichVu);
 		model.addAttribute("listSP", list);
+		if(errorMessage.isEmpty()) {
+			model.addAttribute("errorMessage", errorMessage);
+			System.out.println(errorMessage);
+		}
 		return "index";
 	}
 
-	@GetMapping("/card")
-	public String card(Model model) {
-		if (sessionService.get("session_NguoiDung") == null) {
-			System.out.println("Chưa đăng nhập");
-			return "redirect:/index";
-		} else {
-			return "shoppingCart";
-		}
-
-	}
+//	@GetMapping("/card")
+//	public String card(Model model) {
+//		if (sessionService.get("session_NguoiDung") == null) {
+//			System.out.println("Chưa đăng nhập");
+//			return "redirect:/index";
+//		} else {
+//			return "shoppingCart";
+//		}
+//
+//	}
 
 	@GetMapping("AccountInformation.html")
 	public String AccountInformation() {
@@ -120,22 +124,5 @@ public class MyController {
 	public String reservation() {
 		return "reservation";
 	}
-
-//	@PostMapping("/deleteCartProduct")
-//	public String delete_ProductCart(Model model, @RequestParam("tenSanPham") String tenSanPham) {
-//		NguoiDung ng = (NguoiDung) sessionService.get("session_NguoiDung");
-//		GioHang gh = gioHangDAO.findByNguoiDungId(ng.getNguoi_dung_id());
-//		List<GioHangSanPham> ghsp = gioHangSanPhamDAO.findAll();
-//
-//		for (GioHangSanPham gioHangSanPham : ghsp) {
-//			if (gioHangSanPham.getGioHang().getGio_hang_id() == gh.getGio_hang_id()) {
-//				if (gioHangSanPham.getSanPham().getTenSanPham().equals(tenSanPham)) {
-//					gioHangSanPhamDAO.delete(gioHangSanPham);
-//				}
-//			}
-//		}
-//
-//		return "redirect:/User/Cart";
-//	}
 
 }

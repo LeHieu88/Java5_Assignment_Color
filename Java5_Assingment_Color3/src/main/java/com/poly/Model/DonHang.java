@@ -40,7 +40,10 @@ public class DonHang {
     
     @Column(name = "tong_gia_tri", nullable = false)
     public double tongGiaTri;
-
+    
+    @Column(name = "trang_thai")
+    public boolean trangThai;
+    
     @OneToMany(mappedBy = "donHang")
     public List<DonHangDichVu> donHangDichVuList;
 
