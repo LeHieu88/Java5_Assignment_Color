@@ -25,4 +25,6 @@ public interface NguoiDungDAO extends JpaRepository<NguoiDung, Integer> {
 
 	NguoiDung findByEmail(String email);
 
+	NguoiDung findById(int id);
+
 }

@@ -79,9 +79,9 @@
 										<tbody>
 											<tr th:each="statistic : ${statistics}">
 												<td th:text="${statistic.thangNam}"></td>
-												<td th:text="${statistic.tongThu}"></td>
-												<td th:text="${statistic.tongChi}"></td>
-												<td th:text="${statistic.loi}"></td>
+												<td th:text="${statistic.tongThu}+' VND'"></td>
+												<td th:text="${statistic.tongChi}+' VND'"></td>
+												<td th:text="${statistic.loi}+' VND'"></td>
 
 											</tr>
 										</tbody>
@@ -136,10 +136,8 @@
 	<script th:src="@{/plugins/jszip/jszip.min.js}"></script>
 	<script th:src="@{/plugins/pdfmake/pdfmake.min.js}"></script>
 	<script th:src="@{/plugins/pdfmake/vfs_fonts.js}"></script>
-	<script
-		th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
-	<script
-		th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
 	<script
 		th:src="@{/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
 	<!-- AdminLTE App -->

@@ -29,8 +29,7 @@
 <link th:href="@{/plugins/daterangepicker/daterangepicker.css}"
 	rel="stylesheet" />
 <!-- iCheck for checkboxes and radio inputs -->
-<link
-	th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}"
+<link th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}"
 	rel="stylesheet" />
 <!-- Bootstrap Color Picker -->
 <link
@@ -41,8 +40,7 @@
 	th:href="@{/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}"
 	rel="stylesheet" />
 <!-- Select2 -->
-<link th:href="@{/plugins/select2/css/select2.min.css}"
-	rel="stylesheet" />
+<link th:href="@{/plugins/select2/css/select2.min.css}" rel="stylesheet" />
 <link
 	th:href="@{/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}"
 	rel="stylesheet" />
@@ -220,18 +218,15 @@
 	<script th:src="@{/plugins/jszip/jszip.min.js}"></script>
 	<script th:src="@{/plugins/pdfmake/pdfmake.min.js}"></script>
 	<script th:src="@{/plugins/pdfmake/vfs_fonts.js}"></script>
-	<script
-		th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
-	<script
-		th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
 	<script
 		th:src="@{/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
 	<!-- AdminLTE App -->
 	<script th:src="@{/dist/js/adminlte.min.js}"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script th:src="@{/dist/js/demo.js}"></script>
-	<script
-		th:src="@{/plugins/jquery-validation/jquery.validate.min.js}"></script>
+	<script th:src="@{/plugins/jquery-validation/jquery.validate.min.js}"></script>
 	<!-- Select2 -->
 	<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>
 	<!-- Bootstrap4 Duallistbox -->
@@ -259,24 +254,44 @@
 
 	<!-- Page specific script -->
 	<script>
-  document.getElementById('supplierForm').addEventListener('submit', function(event) {
-    // Ngăn chặn gửi form mặc định
-    event.preventDefault();
+		document
+				.getElementById('supplierForm')
+				.addEventListener(
+						'submit',
+						function(event) {
+							// Ngăn chặn gửi form mặc định
+							event.preventDefault();
 
-    // Lấy danh sách các sản phẩm được chọn
-    var selectedProducts = Array.from(document.querySelectorAll('#selectedProducts option:checked'))
-                             .map(function(option) {
-                               return option.value;
-                             });
+							// Lấy danh sách các sản phẩm được chọn
+							var selectedProducts = Array
+									.from(
+											document
+													.querySelectorAll('#selectedProducts option:checked'))
+									.map(function(option) {
+										return option.value;
+									});
 
-    // Gửi danh sách các sản phẩm được chọn đến server hoặc thực hiện xử lý khác
-    console.log(selectedProducts.value);
-    
-    // Tiếp tục gửi form (nếu cần thiết)
-    this.submit();
-  });
-</script>
-	
+							// Kiểm tra xem có giá trị nào được chọn hay không
+							if (selectedProducts.length === 0) {
+								// Hiển thị thông báo ngẫu nhiên
+								var messages = [
+										"Vui lòng chọn ít nhất một sản phẩm.",
+										"Hãy chọn một sản phẩm trước khi gửi." ];
+								var randomIndex = Math.floor(Math.random()
+										* messages.length);
+								alert(messages[randomIndex]);
+								return;
+							}
+
+							// Gửi danh sách các sản phẩm được chọn đến server hoặc thực hiện xử lý khác
+							console.log(selectedProducts.value);
+
+							// Tiếp tục gửi form (nếu cần thiết)
+							this.submit();
+						});
+	</script>
+
+
 	<script>
 		$(function() {
 			$("#example1").DataTable(

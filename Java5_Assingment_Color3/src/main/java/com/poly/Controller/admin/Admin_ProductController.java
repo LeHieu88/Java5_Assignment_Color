@@ -30,11 +30,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poly.DAO.ChiTietDonHangDAO;
+import com.poly.DAO.DonHangDAO;
 import com.poly.DAO.GioHangSanPhamDAO;
 import com.poly.DAO.KhoDAO;
 import com.poly.DAO.NhaCungCapDAO;
 import com.poly.DAO.SanPhamDAO;
 import com.poly.DAO.SanPhamMaGiamGiaDAO;
+import com.poly.Model.DonHang;
 import com.poly.Model.Kho;
 import com.poly.Model.NhaCungCap;
 import com.poly.Model.SanPham;
@@ -71,11 +73,21 @@ public class Admin_ProductController {
 	@Autowired
 	private ResourceLoader resourceLoader;
 
+	@Autowired
+	DonHangDAO donHangDAO;
+
 	@GetMapping("Admin/ProductManagement")
 	public String ProductManagement(Model model) {
 		List<SanPham> list = sanPhamDAO.findAll();
 		model.addAttribute("listSanPham", list);
 		return "admin/ProductManagement";
+	}
+
+	@GetMapping("Admin/OrderManagement")
+	public String OrderManagement(Model model) {
+		List<DonHang> list = donHangDAO.findAll();
+		model.addAttribute("listDonHang", list);
+		return "admin/OrderManagement";
 	}
 
 	@GetMapping("Admin/AddProduct")

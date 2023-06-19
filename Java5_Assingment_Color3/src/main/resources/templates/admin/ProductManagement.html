@@ -89,7 +89,7 @@
 												<!-- Hiển thị các thuộc tính của sản phẩm -->
 												<td th:text="${sanPham.tenSanPham}"></td>
 												<td th:text="${sanPham.khoList[0].soLuong}"></td>
-												<td th:text="${sanPham.gia}"></td>
+												<td th:text="${sanPham.gia}+' VND'"></td>
 												<td><img th:src="@{/images/} + ${sanPham.hinhAnh}"
 													alt="Product Image" style="width: 95%" height="150px"></td>
 												<td th:text="${sanPham.moTa}"></td>
@@ -99,7 +99,8 @@
 															th:href="@{/Admin/EditProduct/{ProductId}(ProductId=${sanPham.id})}"
 															class="btn btn-info"><i class="fas fa-edit"></i></a> <a
 															th:href="@{/Admin/lockProduct/{ProductId}/{trangThai}(ProductId=${sanPham.id},trangThai=${sanPham.trangThai})}"
-															class="btn btn-danger"> <i
+															class="btn btn-danger" onclick="showLockConfirmation()">
+															<i
 															th:class="${sanPham.trangThai ? 'fa fa-lock' : 'fa fa-unlock-alt'}"
 															th:value="${sanPham.trangThai}"></i>
 														</a>
@@ -166,7 +167,14 @@
 											});
 						});
 	</script>
-
+	<script>
+		function showLockConfirmation() {
+			var confirmLock = confirm("Bạn có chắc chắn muốn thực hiện thao tác này?");
+			if (!confirmLock) {
+				event.preventDefault(); // Ngăn chặn chuyển hướng khi không xác nhận
+			}
+		}
+	</script>
 	<!-- jQuery -->
 	<!-- Thêm CSS tùy chỉnh -->
 	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
