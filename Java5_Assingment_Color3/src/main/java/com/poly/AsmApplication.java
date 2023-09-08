@@ -6,10 +6,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class Java5AssingmentColor3Application {
+public class AsmApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Java5AssingmentColor3Application.class, args);
+		SpringApplication.run(AsmApplication.class, args);
 	}
 
 }
